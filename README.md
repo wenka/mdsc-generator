@@ -1,2 +1,29 @@
 # mdsc-generator
 mdsc(model、dao、service、controller)。根据数据库表自动生成基于Spring注解，Mybatis对应model、dao、service、controller 6个文件。
+
+# 工具初衷
+1. 不满足 mybatis-generator 只生成 Dao 层。
+2. 使用 mybatis-plus 虽可生成mdsc，但是生成的类强依赖于mybatis-plus。
+3. 想拥有一款可以不过渡依赖第三放jar，不耦合项目主体，可定制化生成自己想要的此类工具。
+4. 锻炼自己。
+
+# 工具目标
+## 1. 基础目标
+> 生成可供开发使用的代码，拥有通用的增删改查操作。(已实现)
+- model.java
+- dao.java
+- mapper.xml
+- interface service.java
+- serviceIml.java
+- controller.java
+
+## 2. 长远目标
+> 作为真正的代码生成工具使用。(未实现)
+- 开发 idea 插件，将功能集成与插件中，直接在 IDE 中使用鼠标操作使用。
+- 模板自定义，可自定义任何类型模板，生成各类型文本文件。
+- 不局限于生成java后端代码，期望生成基于Vue+(ElementUI | IviewUI)的前端代码，包括列表页、详情页，并对接后端生成的接口。
+
+# 工具介绍
+> 参考 generator.properties 与 table.xml 配置即可。
+>
+_<详情待定...>_
