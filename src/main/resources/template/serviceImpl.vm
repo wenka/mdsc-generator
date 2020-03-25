@@ -1,0 +1,91 @@
+package ${package};
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import ${model};
+import ${dao};
+import ${service};
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Date;
+
+/**
+ * @description: 服务层接口实现
+ */
+@Service
+@Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
+public class ${simpleModel}ServiceImpl implements ${simpleModel}Service {
+
+    @Autowired
+    private ${simpleDao} ${simpleDaoV};
+
+    /**
+     * 添加
+     *
+     * @param record
+     */
+    public int add(${simpleModel} record){
+        record.setId(${idUtil});
+        record.setCreateTime(new Date());
+        record.setUpdateTime(new Date());
+        return this.${simpleDaoV}.insertSelective(record);
+    }
+
+    /**
+     * 修改
+     *
+     * @param record
+     */
+    public int update(${simpleModel} record){
+        record.setUpdateTime(new Date());
+        return this.${simpleDaoV}.updateByPrimaryKeySelective(record);
+    }
+
+    /**
+     * 真实删除
+     *
+     * @param id
+     * @return
+     */
+    public int delete(String id){
+        return this.${simpleDaoV}.deleteByPrimaryKey(id);
+    }
+
+    /**
+     * 根据Id查询
+     *
+     * @param id
+     * @return
+     */
+    public ${simpleModel} selectById(String id){
+        return this.${simpleDaoV}.selectBySelective(new ${simpleModel}().setId(id));
+    }
+
+    /**
+    * 分页查询
+    *
+    * @param record
+    * @return
+    */
+    public PageInfo<${simpleModel}> selectByPage(${simpleModel} record){
+        Page<${simpleModel}> page = PageHelper.startPage(record.getPageNum(), record.getPageSize());
+        this.${simpleDaoV}.selectList(record);
+        return page.toPageInfo();
+    }
+
+    /**
+    * 全量查询列表
+    *
+    * @param record
+    * @return
+    */
+    public List<${simpleModel}> selectList(${simpleModel} record){
+        return this.${simpleDaoV}.selectList(record);
+    }
+
+}

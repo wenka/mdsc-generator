@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="${dao}">
+  <resultMap id="BaseResultMap" type="${model}">
+#foreach(${column} in ${columns})
+#if(${column.name} == "id")
+    <id column="${column.name}" property="${column.humpName}" jdbcType="${column.jdbcType}"/>
+#end
+    <result column="${column.name}" property="${column.humpName}" jdbcType="${column.jdbcType}"/>
+#end
+  </resultMap>
+
+  <sql id="Base_Column_List">
+#set($count=0)
+      #foreach(${column} in ${columns})#if(${count} == 0)${column.name}#end#if(${count} > 0),${column.name}#end#set($count=$count+1)
+#end
+
+  </sql>
+
+  <sql id="Base_Where">
+    where 1=1
+#foreach(${column} in ${columns})
+    <if test="${column.humpName} != null">
+      and ${column.name} = #{${column.humpName},jdbcType=${column.jdbcType}}
+    </if>
+#end
+  </sql>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    DELETE FROM ${tableName} WHERE id = #{id,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insertSelective" parameterType="${model}">
+    insert into ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+#foreach(${column} in ${columns})
+        <if test="${column.humpName} != null">
+            ${column.name},
+        </if>
+#end
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+#foreach(${column} in ${columns})
+        <if test="${column.humpName} != null">
+            #{${column.humpName},jdbcType=${column.jdbcType}},
+        </if>
+#end
+    </trim>
+  </insert>
+
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="${model}">
+    select
+    <include refid="Base_Column_List"/>
+    from ${tableName}
+    <include refid="Base_Where"/>
+    LIMIT 1
+  </select>
+
+  <update id="updateByPrimaryKeySelective" parameterType="${model}">
+    update ${tableName}
+    <set>
+#foreach(${column} in ${columns})
+        <if test="${column.humpName} != null">
+            ${column.name} = #{${column.humpName},jdbcType=${column.jdbcType}},
+        </if>
+#end
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectList" resultMap="BaseResultMap" parameterType="${model}">
+    select
+    <include refid="Base_Column_List"/>
+    from ${tableName}
+    <include refid="Base_Where"/>
+  </select>
+
+</mapper>

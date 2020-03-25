@@ -1,0 +1,59 @@
+package ${package};
+
+import com.github.pagehelper.PageInfo;
+import ${model};
+
+import java.util.List;
+
+/**
+ * @description: 服务层接口
+ */
+public interface ${simpleModel}Service {
+
+    /**
+     * 添加
+     *
+     * @param record
+     */
+    int add(${simpleModel} record);
+
+    /**
+     * 修改
+     *
+     * @param record
+     */
+    int update(${simpleModel} record);
+
+    /**
+     * 真实删除
+     *
+     * @param id
+     * @return
+     */
+    int delete(String id);
+
+    /**
+     * 根据Id查询
+     *
+     * @param id
+     * @return
+     */
+    ${simpleModel} selectById(String id);
+
+    /**
+    * 分页查询
+    *
+    * @param record
+    * @return
+    */
+    PageInfo<${simpleModel}> selectByPage(${simpleModel} record);
+
+    /**
+    * 全量查询列表
+    *
+    * @param record
+    * @return
+    */
+    List<${simpleModel}> selectList(${simpleModel} record);
+
+}

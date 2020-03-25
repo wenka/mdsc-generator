@@ -1,0 +1,23 @@
+package ${packageName};
+
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+#foreach(${import} in ${importSets})
+import ${import};
+#end
+
+/**
+ * @author ${author}
+ */
+@Data
+@Accessors(chain = true)
+public class ${className} #if(${extend})extends ${extend}#end {
+
+    #foreach(${filed} in ${fields})
+/** ${filed.remark} */
+    private ${filed.javaType} ${filed.humpName};
+
+    #end
+
+}

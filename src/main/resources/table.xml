@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tables SYSTEM "./dtd/table.dtd">
+<tables>
+  <table>
+    <table-name>s_menus</table-name>
+    <class-name>Menus</class-name>
+  </table>
+</tables>

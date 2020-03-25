@@ -1,0 +1,39 @@
+package ${package};
+
+import ${model};
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
+import java.util.List;
+
+@Mapper
+@Repository
+public interface ${simpleModel}Mapper {
+
+    /**
+     * 根据主键删除
+     */
+    int deleteByPrimaryKey(String id);
+
+    /**
+     * 增加
+     */
+    int insertSelective(${simpleModel} record);
+
+    /**
+     * 根据条件查询
+     */
+    ${simpleModel} selectBySelective(${simpleModel} record);
+
+    /**
+     * 根据主键修改
+     */
+    int updateByPrimaryKeySelective(${simpleModel} record);
+
+    /**
+     * 根据条件查询全部
+     *
+     * @return
+     */
+    List<${simpleModel}> selectList(${simpleModel} record);
+
+}
