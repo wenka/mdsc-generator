@@ -25,5 +25,5 @@ mdsc(model、dao、service、controller)。根据数据库表自动生成基于S
 
 # 工具介绍
 > 参考 generator.properties 与 table.xml 配置即可。
->
+> main方法直接调用：com.wenka.mdsc.generator.CodeGenerator.gen();
 _<详情待定...>_
