@@ -28,6 +28,8 @@ public class XmlUtil {
     public static void readTableXml() {
         try {
 
+//            ClasspathResourceLoader classpathResourceLoader = new ClasspathResourceLoader();
+//            InputStream stream = classpathResourceLoader.getResourceStream(XML);
             URL resource = XmlUtil.class.getClassLoader().getResource(XML);
             File file = new File(resource.getFile());
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -36,11 +38,13 @@ public class XmlUtil {
                 String suffix = ".dtd";
                 if (systemId.contains(suffix)) {
                     InputStream inputStream = XmlUtil.class.getClassLoader().getResourceAsStream(DTD);
+//                    InputStream inputStream = classpathResourceLoader.getResourceStream(XML);
                     return new InputSource(inputStream);
                 }
                 return null;
             });
             Document document = documentBuilder.parse(new FileInputStream(file));
+//            Document document = documentBuilder.parse(stream);
 
             NodeList tables = document.getElementsByTagName("tables");
 
