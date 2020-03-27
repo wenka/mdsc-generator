@@ -1,5 +1,7 @@
 package com.wenka.mdsc.generator.config;
 
+import com.wenka.mdsc.generator.annotation.Bean;
+import com.wenka.mdsc.generator.annotation.Value;
 import com.wenka.mdsc.generator.constants.PrecisionEnum;
 import com.wenka.mdsc.generator.constants.PropertiesKey;
 import com.wenka.mdsc.generator.util.PropertiesUtil;
@@ -18,14 +20,19 @@ import java.util.function.Function;
  */
 @Data
 @Accessors(chain = true)
+@Bean
 public class DBConfig {
 
+    @Value(PropertiesKey.JDBC_URL)
     private String url;
 
+    @Value(PropertiesKey.JDBC_DRIVER)
     private String driver;
 
+    @Value(PropertiesKey.JDBC_USERNAME)
     private String username;
 
+    @Value(PropertiesKey.JDBC_PASSWORD)
     private String password;
 
     /**

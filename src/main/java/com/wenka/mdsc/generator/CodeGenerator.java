@@ -2,17 +2,19 @@ package com.wenka.mdsc.generator;
 
 
 import com.wenka.mdsc.generator.chain.FileChain;
-import com.wenka.mdsc.generator.config.DBConfig;
-import com.wenka.mdsc.generator.constants.PropertiesKey;
+import com.wenka.mdsc.generator.constants.FactoryType;
 import com.wenka.mdsc.generator.context.GeneratorContext;
+import com.wenka.mdsc.generator.factory.AbstractFactory;
+import com.wenka.mdsc.generator.factory.FactoryProducer;
 import com.wenka.mdsc.generator.model.TableInfo;
+import com.wenka.mdsc.generator.resolve.ClassPathBeanScanner;
 import com.wenka.mdsc.generator.service.GenFileService;
 import com.wenka.mdsc.generator.util.FolderUtil;
-import com.wenka.mdsc.generator.util.PropertiesUtil;
 import com.wenka.mdsc.generator.util.XmlUtil;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created with IDEA
@@ -23,14 +25,8 @@ import java.util.Map;
  */
 public class CodeGenerator {
 
-    /**
-     * 模板存放文件夹
-     */
-    public static String VM_TARGET_PATH = "template";
-
     public static void run() {
         init();
-        BeanFactory.start();
     }
 
 
@@ -38,13 +34,14 @@ public class CodeGenerator {
      * 初始化上下文
      */
     private static void initContext() {
-        String driver = PropertiesUtil.getValue(PropertiesKey.JDBC_DRIVER);
-        String url = PropertiesUtil.getValue(PropertiesKey.JDBC_URL);
-        String username = PropertiesUtil.getValue(PropertiesKey.JDBC_USERNAME);
-        String password = PropertiesUtil.getValue(PropertiesKey.JDBC_PASSWORD);
-        DBConfig dbConfig = new DBConfig().setDriver(driver).setUrl(url).setUsername(username).setPassword(password);
-        GeneratorContext.register(dbConfig);
+        AbstractFactory resolverFactory = FactoryProducer.getFactory(FactoryType.RESOLVER);
+        ClassPathBeanScanner beanScanner = resolverFactory.createBean(ClassPathBeanScanner.class);
+        Set<Class<?>> classes = beanScanner.scanBeanClasses(CodeGenerator.class.getPackage().getName());
 
+        AbstractFactory beanFactory = FactoryProducer.getFactory(FactoryType.BEAN);
+        for (Class c : classes) {
+            GeneratorContext.register(beanFactory.createBean(c));
+        }
     }
 
     /**
