@@ -6,7 +6,7 @@
 
   <groupId>com.wenka.mdsc</groupId>
   <artifactId>mdsc-generator</artifactId>
-  <version>1.0</version>
+  <version>1.1</version>
   <build>
     <plugins>
       <plugin>
