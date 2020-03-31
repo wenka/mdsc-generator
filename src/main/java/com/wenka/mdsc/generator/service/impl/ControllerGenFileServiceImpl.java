@@ -69,7 +69,7 @@ public class ControllerGenFileServiceImpl extends BaseGenFileService {
         args.put("baseUrl", String.valueOf(classNameChars));
         args.put("simpleModel", className);
         args.put("package", parentPackage + "." + controllerPackage);
-        args.put("responseModel", "com.mall.commons.vo.Result");
+        args.put("responseModel", PropertiesUtil.getValue(PropertiesKey.RESULT_MODEL));
         args.put("SimplResponseModel", "Result");
         String serviceName = Contants.DEFAULT_SERVICE_NAME.replace("#", className);
         args.put("service", parentPackage + "." + servicePackage + "." + serviceName);

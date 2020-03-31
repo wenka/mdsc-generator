@@ -55,13 +55,14 @@ public class CodeGenerator {
      * 初始化XML配置
      */
     private static void initXMLValue() {
-        XmlUtil.readTableXml();
+//        XmlUtil.readTableXml();
+        XmlUtil.readXml();
     }
 
     private static void init() {
+        initXMLValue();
         initGlobalValue();
         initContext();
-        initXMLValue();
     }
 
     /**

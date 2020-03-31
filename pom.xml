@@ -30,6 +30,13 @@
     <lombok.version>1.18.10</lombok.version>
   </properties>
 
+  <distributionManagement>
+    <repository>
+      <id>ew</id>
+      <url>http://www.wenka.top:8081/nexus/content/repositories/ew/</url>
+    </repository>
+  </distributionManagement>
+
   <dependencies>
 
     <dependency>

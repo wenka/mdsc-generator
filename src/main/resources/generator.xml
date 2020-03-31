@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE setting SYSTEM "./dtd/generator.dtd">
+<setting>
+
+  <properties>
+    <precision>high</precision>
+    <author>wenka</author>
+    <jdbc.driver>com.mysql.cj.jdbc.Driver</jdbc.driver>
+    <jdbc.url>jdbc:mysql://****:3306/*?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</jdbc.url>
+    <jdbc.username>*</jdbc.username>
+    <jdbc.password>**</jdbc.password>
+    <parent.package>com.mall.app.identity</parent.package>
+    <dao.package>dao</dao.package>
+    <service.package>service</service.package>
+    <controller.package>controller</controller.package>
+    <module.path>C:\\Users\\wenka\\Desktop</module.path>
+    <xml.path>mappers</xml.path>
+    <base-model>com.mall.model.BaseModel</base-model>
+    <ignore-column>UPDATE_TIME,CREATE_TIME</ignore-column>
+    <id-util>com.mall.commons.util.IDUtil.bulidId()</id-util>
+    <result-model>com.mall.commons.vo.Result</result-model>
+  </properties>
+
+  <tables>
+    <table table-name="s_menus" class-name="Menus" />
+    <table table-name="roles" class-name="Roles" />
+  </tables>
+</setting>

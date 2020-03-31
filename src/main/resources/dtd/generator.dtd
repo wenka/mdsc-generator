@@ -1,0 +1,27 @@
+<!ELEMENT setting (properties,tables)>
+    <!ELEMENT properties (precision,author,
+        jdbc.driver,jdbc.url,jdbc.username,jdbc.password,
+        parent.package?,dao.package?,service.package?,controller.package?,
+        module.path,xml.path?,
+        base-model?,ignore-column?,
+        id-util,result-model)>
+    <!ELEMENT precision (#PCDATA)>
+    <!ELEMENT author (#PCDATA)>
+    <!ELEMENT jdbc.driver (#PCDATA)>
+    <!ELEMENT jdbc.url (#PCDATA)>
+    <!ELEMENT jdbc.username (#PCDATA)>
+    <!ELEMENT jdbc.password (#PCDATA)>
+    <!ELEMENT parent.package (#PCDATA)>
+    <!ELEMENT dao.package (#PCDATA)>
+    <!ELEMENT service.package (#PCDATA)>
+    <!ELEMENT controller.package (#PCDATA)>
+    <!ELEMENT module.path (#PCDATA)>
+    <!ELEMENT xml.path (#PCDATA)>
+    <!ELEMENT base-model (#PCDATA)>
+    <!ELEMENT ignore-column (#PCDATA)>
+    <!ELEMENT id-util (#PCDATA)>
+    <!ELEMENT result-model (#PCDATA)>
+    <!ELEMENT tables (table+)>
+    <!ELEMENT table EMPTY>
+    <!ATTLIST table table-name CDATA #REQUIRED>
+    <!ATTLIST table class-name CDATA #REQUIRED>

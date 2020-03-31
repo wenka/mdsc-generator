@@ -42,6 +42,7 @@ public class PropertiesKey {
      * 其他配置
      */
     public final static String BASE_MODEL = "base-model";
+    public final static String RESULT_MODEL = "result-model";
     public final static String IGNORE_COLUMN = "ignore-column";
     public final static String ID_UTIL = "id-util";
 

@@ -17,18 +17,18 @@ public class PropertiesUtil {
 
     static {
         properties = new Properties();
-        InputStream resourceAsStream = PropertiesUtil.class.getClassLoader().getResourceAsStream("generator.properties");
-        try {
-            properties.load(resourceAsStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                resourceAsStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+//        InputStream resourceAsStream = PropertiesUtil.class.getClassLoader().getResourceAsStream("generator.properties");
+//        try {
+//            properties.load(resourceAsStream);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                resourceAsStream.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     public static String getValue(String name) {
@@ -39,4 +39,7 @@ public class PropertiesUtil {
         properties.putIfAbsent(key, value);
     }
 
+    public static void put(String key, String value) {
+        properties.put(key, value);
+    }
 }

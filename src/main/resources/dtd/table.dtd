@@ -1,4 +1,0 @@
-<!ELEMENT tables (table+)>
-    <!ELEMENT table (table-name, class-name)>
-    <!ELEMENT table-name (#PCDATA)>
-    <!ELEMENT class-name (#PCDATA)>
