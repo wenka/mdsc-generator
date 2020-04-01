@@ -5,6 +5,7 @@ import com.wenka.mdsc.generator.service.GenFileService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created with IDEA
@@ -28,7 +29,7 @@ public class FileChain {
     }
 
     public FileChain addChain(List<GenFileService> genFileServiceList) {
-        for (GenFileService genFileService: genFileServiceList){
+        for (GenFileService genFileService : genFileServiceList) {
             this.fileChain.add(genFileService);
         }
         return this;

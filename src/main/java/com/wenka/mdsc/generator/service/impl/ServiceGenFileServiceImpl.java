@@ -18,7 +18,7 @@ import java.util.Map;
  * @date 2020/03/24  下午 02:25
  * @description:
  */
-@Bean
+@Bean(order = 4)
 public class ServiceGenFileServiceImpl extends BaseGenFileService {
     /**
      * 获取文件生成位置

@@ -21,7 +21,7 @@ import java.util.*;
  * @date 2020/03/24  下午 02:25
  * @description:
  */
-@Bean
+@Bean(order = 1)
 public class ModelGenFileServiceImpl extends BaseGenFileService {
     /**
      * 获取文件生成位置

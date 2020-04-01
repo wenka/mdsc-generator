@@ -13,4 +13,17 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Bean {
+
+    /**
+     * bean 名称：默认为当前类的 simpleName
+     * @return
+     */
+    String value() default "";
+
+    /**
+     * 当容器中有相同父类的bean时，按照 order顺序优先选择获取 bean
+     *
+     * @return
+     */
+    int order() default 0;
 }
