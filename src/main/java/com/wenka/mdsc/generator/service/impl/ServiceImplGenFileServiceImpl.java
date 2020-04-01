@@ -21,6 +21,14 @@ import java.util.Map;
 @Bean(order = 5)
 public class ServiceImplGenFileServiceImpl extends BaseGenFileService {
     /**
+     * @return
+     */
+    @Override
+    public boolean support() {
+        return true;
+    }
+
+    /**
      * 获取文件生成位置
      *
      * @param className
@@ -59,27 +67,8 @@ public class ServiceImplGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public Map<String, Object> templateData(TableInfo tableInfo) {
-        String className = tableInfo.getClassName();
-        String parentPackage = PropertiesUtil.getValue(PropertiesKey.PARENT_PACKAGE);
-        String modelPackage = PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE);
-        String servicePackage = PropertiesUtil.getValue(PropertiesKey.SERVICE_PACKAGE);
-        String serviceImplPackage = PropertiesUtil.getValue(PropertiesKey.SERVICE_IMPL_PACKAGE);
-        String daoPackage = PropertiesUtil.getValue(PropertiesKey.DAO_PACKAGE);
         Map<String, Object> args = new HashMap<>();
-        args.put("package", parentPackage + "." + servicePackage + "." + serviceImplPackage);
-        args.put("model", parentPackage + "." + modelPackage + "." + className);
-        String daoName = Contants.DEFAULT_MAPPER_NAME.replace("#", className);
-        args.put("dao", parentPackage + "." + daoPackage + "." + daoName);
-
-        String serviceName = Contants.DEFAULT_SERVICE_NAME.replace("#", className);
-        args.put("service", parentPackage + "." + servicePackage + "." + serviceName);
         args.put("idUtil", PropertiesUtil.getValue(PropertiesKey.ID_UTIL));
-        args.put("simpleModel", className);
-        args.put("simpleDao", daoName);
-        char[] chars = daoName.toCharArray();
-        chars[0] = String.valueOf(chars[0]).toLowerCase().charAt(0);
-        args.put("simpleDaoV", String.valueOf(chars));
-
         return args;
     }
 

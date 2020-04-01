@@ -23,8 +23,8 @@ mdsc(model、dao、service、controller)。根据数据库表自动生成基于S
 - 模板自定义，可自定义任何类型模板，生成各类型文本文件。
 - 不局限于生成java后端代码，期望生成基于Vue+(ElementUI | IviewUI)的前端代码，包括列表页、详情页，并对接后端生成的接口。
 
-# 工具介绍
-> 参考 generator.properties 与 table.xml 配置即可。
+# 工具使用
+> 参考 generator.xml 配置即可。
 > main方法直接调用：com.wenka.mdsc.generator.CodeGenerator.gen();
 
 配置说明

@@ -1,28 +1,28 @@
-package ${package};
+package ${ServicePackage};
 
 import com.github.pagehelper.PageInfo;
-import ${model};
+import ${ModelName};
 
 import java.util.List;
 
 /**
  * @description: 服务层接口
  */
-public interface ${simpleModel}Service {
+public interface ${ServiceSimpleName} {
 
     /**
      * 添加
      *
      * @param record
      */
-    int add(${simpleModel} record);
+    int add(${ModelSimpleName} record);
 
     /**
      * 修改
      *
      * @param record
      */
-    int update(${simpleModel} record);
+    int update(${ModelSimpleName} record);
 
     /**
      * 真实删除
@@ -38,7 +38,7 @@ public interface ${simpleModel}Service {
      * @param id
      * @return
      */
-    ${simpleModel} selectById(String id);
+    ${ModelSimpleName} selectById(String id);
 
     /**
     * 分页查询
@@ -46,7 +46,7 @@ public interface ${simpleModel}Service {
     * @param record
     * @return
     */
-    PageInfo<${simpleModel}> selectByPage(${simpleModel} record);
+    PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record);
 
     /**
     * 全量查询列表
@@ -54,6 +54,6 @@ public interface ${simpleModel}Service {
     * @param record
     * @return
     */
-    List<${simpleModel}> selectList(${simpleModel} record);
+    List<${ModelSimpleName}> selectList(${ModelSimpleName} record);
 
 }

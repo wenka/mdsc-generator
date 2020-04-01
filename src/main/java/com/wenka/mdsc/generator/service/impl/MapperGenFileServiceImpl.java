@@ -25,6 +25,14 @@ import java.util.Map;
 @Bean(order = 3)
 public class MapperGenFileServiceImpl extends BaseGenFileService {
     /**
+     * @return
+     */
+    @Override
+    public boolean support() {
+        return true;
+    }
+
+    /**
      * 获取文件生成位置
      *
      * @param className
@@ -61,16 +69,7 @@ public class MapperGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public Map<String, Object> templateData(TableInfo tableInfo) {
-        String className = tableInfo.getClassName();
-        String parentPackage = PropertiesUtil.getValue(PropertiesKey.PARENT_PACKAGE);
-        String modelPackage = PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE);
-        String daoPackage = PropertiesUtil.getValue(PropertiesKey.DAO_PACKAGE);
         Map<String, Object> args = new HashMap<>();
-        args.put("model", parentPackage + "." + modelPackage + "." + className);
-        String daoName = Contants.DEFAULT_MAPPER_NAME.replace("#", className);
-        args.put("dao", parentPackage + "." + daoPackage + "." + daoName);
-        args.put("tableName", tableInfo.getTableName());
-
         DBService dbService = GeneratorContext.getBean(DBServiceImpl.class);
         List<Column> tableColumns = dbService.getTableColumns(tableInfo.getTableName());
         args.put("columns", tableColumns);

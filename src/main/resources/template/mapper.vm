@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="${dao}">
-  <resultMap id="BaseResultMap" type="${model}">
+<mapper namespace="${DaoName}">
+  <resultMap id="BaseResultMap" type="${ModelName}">
 #foreach(${column} in ${columns})
 #if(${column.name} == "id")
     <id column="${column.name}" property="${column.humpName}" jdbcType="${column.jdbcType}"/>
@@ -30,7 +30,7 @@
     DELETE FROM ${tableName} WHERE id = #{id,jdbcType=VARCHAR}
   </delete>
 
-  <insert id="insertSelective" parameterType="${model}">
+  <insert id="insertSelective" parameterType="${ModelName}">
     insert into ${tableName}
     <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach(${column} in ${columns})
@@ -48,7 +48,7 @@
     </trim>
   </insert>
 
-  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="${model}">
+  <select id="selectBySelective" resultMap="BaseResultMap" parameterType="${ModelName}">
     select
     <include refid="Base_Column_List"/>
     from ${tableName}
@@ -56,7 +56,7 @@
     LIMIT 1
   </select>
 
-  <update id="updateByPrimaryKeySelective" parameterType="${model}">
+  <update id="updateByPrimaryKeySelective" parameterType="${ModelName}">
     update ${tableName}
     <set>
 #foreach(${column} in ${columns})
@@ -68,7 +68,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </update>
 
-  <select id="selectList" resultMap="BaseResultMap" parameterType="${model}">
+  <select id="selectList" resultMap="BaseResultMap" parameterType="${ModelName}">
     select
     <include refid="Base_Column_List"/>
     from ${tableName}

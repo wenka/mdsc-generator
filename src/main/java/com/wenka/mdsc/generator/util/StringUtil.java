@@ -1,5 +1,7 @@
 package com.wenka.mdsc.generator.util;
 
+import org.apache.commons.lang.StringUtils;
+
 /**
  * Created with IDEA
  *
@@ -21,7 +23,7 @@ public class StringUtil {
         boolean isLastChar_ = false;
         for (int i = 0; i < chars.length; i++) {
             String s = String.valueOf(chars[i]);
-            if ("_".equals(s)){
+            if ("_".equals(s)) {
                 isLastChar_ = true;
                 continue;
             }
@@ -33,6 +35,26 @@ public class StringUtil {
             isLastChar_ = false;
         }
         return builder.toString();
+    }
+
+    /**
+     * 首字母小写
+     *
+     * @param word
+     * @return
+     */
+    public static String initialsLowerCase(String word) {
+        if (StringUtils.isBlank(word)) {
+            return "";
+        }
+        char[] chars = new char[1];
+        chars[0] = word.charAt(0);
+        String result = word;
+        if (chars[0] >= 'A' && chars[0] <= 'Z') {
+            String s = new String(chars);
+            result = word.replaceFirst(s, s.toLowerCase());
+        }
+        return result;
     }
 
     public static void main(String[] args) {

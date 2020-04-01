@@ -1,6 +1,7 @@
 package com.wenka.mdsc.generator.service;
 
 import com.wenka.mdsc.generator.chain.FileChain;
+import com.wenka.mdsc.generator.context.GeneratorContext;
 import com.wenka.mdsc.generator.model.TableInfo;
 import com.wenka.mdsc.generator.util.FileUtil;
 import org.apache.commons.io.IOUtils;
@@ -12,6 +13,7 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 
 import java.io.StringWriter;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created with IDEA
@@ -29,19 +31,36 @@ public abstract class BaseGenFileService implements GenFileService {
      */
     @Override
     public void writeFile(TableInfo tableInfo, FileChain fileChain) {
+        boolean support = this.support();
+        if (!support) {
+            return;
+        }
         // 获取模板
-        VelocityEngine ve = new VelocityEngine();
-        ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
-        ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
-        ve.init();
-        Template template = ve.getTemplate(this.vmName(), "UTF-8");
+        Template template = GeneratorContext.template.get(this.vmName());
+        if (Objects.isNull(template)) {
+            VelocityEngine ve = new VelocityEngine();
+            ve.setProperty(RuntimeConstants.RESOURCE_LOADER, "classpath");
+            ve.setProperty("classpath.resource.loader.class", ClasspathResourceLoader.class.getName());
+            ve.init();
+            template = ve.getTemplate(this.vmName(), "UTF-8");
+            GeneratorContext.template.put(this.vmName(), template);
+        }
 
         // 填充数据
         VelocityContext ctx = new VelocityContext();
         Map<String, Object> templateData = this.templateData(tableInfo);
-        for (String key : templateData.keySet()) {
-            ctx.put(key, templateData.get(key));
+        if (templateData != null && !templateData.isEmpty()) {
+            for (String key : templateData.keySet()) {
+                ctx.put(key, templateData.get(key));
+            }
         }
+        Map<String, String> args = fileChain.getArgs();
+        if (args != null && !args.isEmpty()) {
+            for (String key : args.keySet()) {
+                ctx.put(key, args.get(key));
+            }
+        }
+
         StringWriter writer = new StringWriter();
         template.merge(ctx, writer);
         IOUtils.closeQuietly(writer);

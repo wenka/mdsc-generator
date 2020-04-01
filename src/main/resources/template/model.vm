@@ -1,4 +1,4 @@
-package ${packageName};
+package ${ModelPackage};
 
 import lombok.Data;
 import lombok.experimental.Accessors;
@@ -12,7 +12,7 @@ import ${import};
  */
 @Data
 @Accessors(chain = true)
-public class ${className} #if(${extend})extends ${extend}#end {
+public class ${ModelSimpleName} #if(${extend})extends ${extend}#end {
 
     #foreach(${filed} in ${fields})
 /** ${filed.remark} */

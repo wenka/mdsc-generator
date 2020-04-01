@@ -5,6 +5,7 @@ import com.wenka.mdsc.generator.model.BeanInfo;
 import com.wenka.mdsc.generator.model.Column;
 import com.wenka.mdsc.generator.model.TableInfo;
 import org.apache.commons.lang.StringUtils;
+import org.apache.velocity.Template;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,6 +24,11 @@ public class GeneratorContext {
     private final static Map<String, TableInfo> TABLE_MAP = new HashMap<>();
 
     public final static Map<String, List<Column>> TABLE_COLUMN_MAP = new HashMap<>();
+
+    /**
+     * 模板存储：避免重新加载模板文件
+     */
+    public final static Map<String, Template> template = new HashMap<>();
 
     /**
      * 注册 bean

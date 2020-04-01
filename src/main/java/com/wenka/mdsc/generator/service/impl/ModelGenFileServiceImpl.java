@@ -24,6 +24,14 @@ import java.util.*;
 @Bean(order = 1)
 public class ModelGenFileServiceImpl extends BaseGenFileService {
     /**
+     * @return
+     */
+    @Override
+    public boolean support() {
+        return true;
+    }
+
+    /**
      * 获取文件生成位置
      *
      * @param className
@@ -63,9 +71,7 @@ public class ModelGenFileServiceImpl extends BaseGenFileService {
         DBService dbService = GeneratorContext.getBean(DBServiceImpl.class);
         List<Column> tableColumns = dbService.getTableColumns(tableInfo.getTableName());
         Map<String, Object> args = new HashMap<>();
-        args.put("packageName", PropertiesUtil.getValue(PropertiesKey.PARENT_PACKAGE) + "." + PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE));
         args.put("author", PropertiesUtil.getValue(PropertiesKey.AUTHOR));
-        args.put("className", tableInfo.getClassName());
 
         Set<String> imports = new HashSet<>();
         List<Column> fields = new ArrayList<>();

@@ -15,6 +15,12 @@ import java.util.Map;
 public interface GenFileService {
 
     /**
+     *
+     * @return
+     */
+    boolean support();
+
+    /**
      * 获取文件生成位置
      *
      * @param className

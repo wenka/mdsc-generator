@@ -21,6 +21,14 @@ import java.util.Map;
 @Bean(order = 6)
 public class ControllerGenFileServiceImpl extends BaseGenFileService {
     /**
+     * @return
+     */
+    @Override
+    public boolean support() {
+        return true;
+    }
+
+    /**
      * 获取文件生成位置
      *
      * @param className
@@ -57,26 +65,11 @@ public class ControllerGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public Map<String, Object> templateData(TableInfo tableInfo) {
-        String className = tableInfo.getClassName();
-        String parentPackage = PropertiesUtil.getValue(PropertiesKey.PARENT_PACKAGE);
-        String modelPackage = PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE);
-        String controllerPackage = PropertiesUtil.getValue(PropertiesKey.CONTROLLER_PACKAGE);
-        String servicePackage = PropertiesUtil.getValue(PropertiesKey.SERVICE_PACKAGE);
         Map<String, Object> args = new HashMap<>();
-        args.put("model", parentPackage + "." + modelPackage + "." + className);
-        char[] classNameChars = className.toCharArray();
-        classNameChars[0] = String.valueOf(classNameChars[0]).toLowerCase().charAt(0);
-        args.put("baseUrl", String.valueOf(classNameChars));
-        args.put("simpleModel", className);
-        args.put("package", parentPackage + "." + controllerPackage);
-        args.put("responseModel", PropertiesUtil.getValue(PropertiesKey.RESULT_MODEL));
-        args.put("SimplResponseModel", "Result");
-        String serviceName = Contants.DEFAULT_SERVICE_NAME.replace("#", className);
-        args.put("service", parentPackage + "." + servicePackage + "." + serviceName);
-        args.put("simpleService", serviceName);
-        char[] chars = serviceName.toCharArray();
-        chars[0] = String.valueOf(chars[0]).toLowerCase().charAt(0);
-        args.put("simpleServiceV", String.valueOf(chars));
+        String value = PropertiesUtil.getValue(PropertiesKey.RESULT_MODEL);
+        args.put("responseModel", value);
+        String[] strings = value.split(".");
+        args.put("SimplResponseModel", strings[strings.length - 1]);
         return args;
     }
 

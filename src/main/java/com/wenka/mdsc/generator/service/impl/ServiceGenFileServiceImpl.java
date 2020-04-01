@@ -8,7 +8,6 @@ import com.wenka.mdsc.generator.service.BaseGenFileService;
 import com.wenka.mdsc.generator.util.FolderUtil;
 import com.wenka.mdsc.generator.util.PropertiesUtil;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -20,6 +19,14 @@ import java.util.Map;
  */
 @Bean(order = 4)
 public class ServiceGenFileServiceImpl extends BaseGenFileService {
+    /**
+     * @return
+     */
+    @Override
+    public boolean support() {
+        return true;
+    }
+
     /**
      * 获取文件生成位置
      *
@@ -57,15 +64,7 @@ public class ServiceGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public Map<String, Object> templateData(TableInfo tableInfo) {
-        String className = tableInfo.getClassName();
-        String parentPackage = PropertiesUtil.getValue(PropertiesKey.PARENT_PACKAGE);
-        String modelPackage = PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE);
-        String servicePackage = PropertiesUtil.getValue(PropertiesKey.SERVICE_PACKAGE);
-        Map<String, Object> args = new HashMap<>();
-        args.put("model", parentPackage + "." + modelPackage + "." + className);
-        args.put("simpleModel", className);
-        args.put("package", parentPackage + "." + servicePackage);
-        return args;
+        return null;
     }
 
 

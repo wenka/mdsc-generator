@@ -1,13 +1,13 @@
-package ${package};
+package ${DaoPackage};
 
-import ${model};
+import ${ModelName};
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Mapper
 @Repository
-public interface ${simpleModel}Mapper {
+public interface ${DaoSimpleName} {
 
     /**
      * 根据主键删除
@@ -17,23 +17,23 @@ public interface ${simpleModel}Mapper {
     /**
      * 增加
      */
-    int insertSelective(${simpleModel} record);
+    int insertSelective(${ModelSimpleName} record);
 
     /**
      * 根据条件查询
      */
-    ${simpleModel} selectBySelective(${simpleModel} record);
+    ${ModelSimpleName} selectBySelective(${ModelSimpleName} record);
 
     /**
      * 根据主键修改
      */
-    int updateByPrimaryKeySelective(${simpleModel} record);
+    int updateByPrimaryKeySelective(${ModelSimpleName} record);
 
     /**
      * 根据条件查询全部
      *
      * @return
      */
-    List<${simpleModel}> selectList(${simpleModel} record);
+    List<${ModelSimpleName}> selectList(${ModelSimpleName} record);
 
 }

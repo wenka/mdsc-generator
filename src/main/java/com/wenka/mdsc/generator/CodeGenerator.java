@@ -73,15 +73,16 @@ public class CodeGenerator {
         run();
 
         // 注册责任链
-        FileChain fileChain = new FileChain();
+        FileChain fileChain = null;
         List<GenFileService> beans = GeneratorContext.getBeans(GenFileService.class);
-        fileChain.addChain(beans);
 
         // 生成文件
         Map<String, TableInfo> allTable = GeneratorContext.getAllTable();
         for (String table : allTable.keySet()) {
+            System.out.println("### 进行【" + table + " 】表文件生成：");
+            fileChain = new FileChain();
             TableInfo tableInfo = allTable.get(table);
-            fileChain.execute(tableInfo);
+            fileChain.addChain(beans).execute(tableInfo);
         }
 
     }

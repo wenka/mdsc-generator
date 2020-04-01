@@ -21,6 +21,14 @@ import java.util.Map;
 @Bean(order = 2)
 public class DaoGenFileServiceImpl extends BaseGenFileService {
     /**
+     * @return
+     */
+    @Override
+    public boolean support() {
+        return true;
+    }
+
+    /**
      * 获取文件生成位置
      *
      * @param className
@@ -57,15 +65,7 @@ public class DaoGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public Map<String, Object> templateData(TableInfo tableInfo) {
-        String className = tableInfo.getClassName();
-        String parentPackage = PropertiesUtil.getValue(PropertiesKey.PARENT_PACKAGE);
-        String modelPackage = PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE);
-        String daoPackage = PropertiesUtil.getValue(PropertiesKey.DAO_PACKAGE);
-        Map<String, Object> args = new HashMap<>();
-        args.put("model", parentPackage + "." + modelPackage + "." + className);
-        args.put("simpleModel", className);
-        args.put("package", parentPackage + "." + daoPackage);
-        return args;
+        return null;
     }
 
 

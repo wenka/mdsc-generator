@@ -1,11 +1,11 @@
-package ${package};
+package ${ServiceImplPackage};
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import ${model};
-import ${dao};
-import ${service};
+import ${ModelName};
+import ${DaoName};
+import ${ServiceName};
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +19,21 @@ import java.util.Date;
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
-public class ${simpleModel}ServiceImpl implements ${simpleModel}Service {
+public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
 
     @Autowired
-    private ${simpleDao} ${simpleDaoV};
+    private ${DaoSimpleName} ${DaoVariableName};
 
     /**
      * 添加
      *
      * @param record
      */
-    public int add(${simpleModel} record){
+    public int add(${ModelSimpleName} record){
         record.setId(${idUtil});
         record.setCreateTime(new Date());
         record.setUpdateTime(new Date());
-        return this.${simpleDaoV}.insertSelective(record);
+        return this.${DaoVariableName}.insertSelective(record);
     }
 
     /**
@@ -41,9 +41,9 @@ public class ${simpleModel}ServiceImpl implements ${simpleModel}Service {
      *
      * @param record
      */
-    public int update(${simpleModel} record){
+    public int update(${ModelSimpleName} record){
         record.setUpdateTime(new Date());
-        return this.${simpleDaoV}.updateByPrimaryKeySelective(record);
+        return this.${DaoVariableName}.updateByPrimaryKeySelective(record);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ${simpleModel}ServiceImpl implements ${simpleModel}Service {
      * @return
      */
     public int delete(String id){
-        return this.${simpleDaoV}.deleteByPrimaryKey(id);
+        return this.${DaoVariableName}.deleteByPrimaryKey(id);
     }
 
     /**
@@ -62,8 +62,8 @@ public class ${simpleModel}ServiceImpl implements ${simpleModel}Service {
      * @param id
      * @return
      */
-    public ${simpleModel} selectById(String id){
-        return this.${simpleDaoV}.selectBySelective(new ${simpleModel}().setId(id));
+    public ${ModelSimpleName} selectById(String id){
+        return this.${DaoVariableName}.selectBySelective(new ${ModelSimpleName}().setId(id));
     }
 
     /**
@@ -72,9 +72,9 @@ public class ${simpleModel}ServiceImpl implements ${simpleModel}Service {
     * @param record
     * @return
     */
-    public PageInfo<${simpleModel}> selectByPage(${simpleModel} record){
-        Page<${simpleModel}> page = PageHelper.startPage(record.getPageNum(), record.getPageSize());
-        this.${simpleDaoV}.selectList(record);
+    public PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record){
+        Page<${ModelSimpleName}> page = PageHelper.startPage(record.getPageNum(), record.getPageSize());
+        this.${DaoVariableName}.selectList(record);
         return page.toPageInfo();
     }
 
@@ -84,8 +84,8 @@ public class ${simpleModel}ServiceImpl implements ${simpleModel}Service {
     * @param record
     * @return
     */
-    public List<${simpleModel}> selectList(${simpleModel} record){
-        return this.${simpleDaoV}.selectList(record);
+    public List<${ModelSimpleName}> selectList(${ModelSimpleName} record){
+        return this.${DaoVariableName}.selectList(record);
     }
 
 }
