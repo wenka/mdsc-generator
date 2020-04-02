@@ -46,4 +46,9 @@ public class PropertiesKey {
     public final static String IGNORE_COLUMN = "ignore-column";
     public final static String ID_UTIL = "id-util";
 
+    /**
+     * 生成文件等级 dao,service,controller
+     */
+    public final static String GENERATE_LEVEL = "generate-level";
+
 }

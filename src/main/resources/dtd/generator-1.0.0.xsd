@@ -32,6 +32,7 @@
       <xs:element name="generate-level">
         <xs:simpleType>
           <xs:restriction base="xs:string">
+            <xs:enumeration value="dao"/>
             <xs:enumeration value="service"/>
             <xs:enumeration value="controller"/>
           </xs:restriction>

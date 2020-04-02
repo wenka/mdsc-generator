@@ -7,6 +7,7 @@ import com.wenka.mdsc.generator.model.TableInfo;
 import com.wenka.mdsc.generator.service.BaseGenFileService;
 import com.wenka.mdsc.generator.util.FolderUtil;
 import com.wenka.mdsc.generator.util.PropertiesUtil;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,7 +26,8 @@ public class ControllerGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public boolean support() {
-        return true;
+        String level = PropertiesUtil.getValue(PropertiesKey.GENERATE_LEVEL);
+        return StringUtils.isNotBlank(level) && level.equals("controller");
     }
 
     /**
@@ -69,7 +71,7 @@ public class ControllerGenFileServiceImpl extends BaseGenFileService {
         String value = PropertiesUtil.getValue(PropertiesKey.RESULT_MODEL);
         args.put("responseModel", value);
         String[] strings = value.split(".");
-        args.put("SimplResponseModel", value.substring(value.lastIndexOf(".")+1));
+        args.put("SimplResponseModel", value.substring(value.lastIndexOf(".") + 1));
         return args;
     }
 
