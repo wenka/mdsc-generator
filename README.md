@@ -30,16 +30,17 @@ mdsc(model、dao、service、controller)。根据数据库表自动生成基于S
 配置说明
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE setting SYSTEM "./dtd/generator.dtd">
-<setting>
-
+<setting xmlns="http://www.w3school.com.cn"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="./dtd/generator-1.0.0.xsd">
   <properties>
-    <precision>精度（high | low）</precision>
+    <precision>high</precision>
     <author>作者</author>
     <jdbc.driver>数据库驱动</jdbc.driver>
     <jdbc.url>数据库URL</jdbc.url>
     <jdbc.username>数据库用户名</jdbc.username>
     <jdbc.password>数据库密码</jdbc.password>
+    <generate-level>controller</generate-level>
     <parent.package>所生成java文件的共有父包(如：com.mall.app.identity)</parent.package>
     <dao.package>所生成*Dao.java的包名(如：dao)</dao.package>
     <service.package>所生成*Service.java的包名(如：service)</service.package>

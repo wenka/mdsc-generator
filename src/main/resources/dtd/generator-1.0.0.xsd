@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.w3school.com.cn"
+           xmlns="http://www.w3school.com.cn"
+           elementFormDefault="qualified">
+  <xs:element name="setting" type="Model">
+  </xs:element>
+  <xs:complexType name="Model">
+    <xs:all>
+      <xs:element name="properties" type="Properties"></xs:element>
+      <xs:element name="tables" type="tables"></xs:element>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="Properties">
+    <xs:sequence>
+      <xs:element name="precision">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="high"/>
+            <xs:enumeration value="low"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="author" type="xs:string"/>
+      <xs:element name="jdbc.driver" type="xs:string"/>
+      <xs:element name="jdbc.url" type="xs:string"/>
+      <xs:element name="jdbc.username" type="xs:string"/>
+      <xs:element name="jdbc.password" type="xs:string"/>
+
+      <xs:element name="generate-level">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="service"/>
+            <xs:enumeration value="controller"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="parent.package" type="xs:string"/>
+      <xs:element name="dao.package" type="xs:string"/>
+      <xs:element name="service.package" type="xs:string"/>
+      <xs:element name="controller.package" type="xs:string"/>
+      <xs:element name="module.path" type="xs:string"/>
+      <xs:element name="xml.path" type="xs:string"/>
+      <xs:element name="base-model" type="xs:string"/>
+      <xs:element name="ignore-column" type="xs:string"/>
+      <xs:element name="id-util" type="xs:string"/>
+      <xs:element name="result-model" type="xs:string"/>
+
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tables">
+    <xs:sequence>
+      <xs:element name="table" minOccurs="1" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="table-name" type="xs:string"/>
+          <xs:attribute name="class-name" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

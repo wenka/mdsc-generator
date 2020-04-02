@@ -69,7 +69,7 @@ public class ControllerGenFileServiceImpl extends BaseGenFileService {
         String value = PropertiesUtil.getValue(PropertiesKey.RESULT_MODEL);
         args.put("responseModel", value);
         String[] strings = value.split(".");
-        args.put("SimplResponseModel", strings[strings.length - 1]);
+        args.put("SimplResponseModel", value.substring(value.lastIndexOf(".")+1));
         return args;
     }
 

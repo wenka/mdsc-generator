@@ -25,38 +25,13 @@ import java.util.function.Function;
  */
 public class XmlUtil {
 
-    private final static String XML = "table.xml";
-    private final static String DTD = "dtd\\table.dtd";
     private final static String XML_NEW = "generator.xml";
-    private final static String DTD_NEW = "dtd\\generator.dtd";
 
-    /**
-     * @since 2020-02-31 v1.1
-     */
-    @Deprecated
-    public static void readTableXml() {
-        try {
-            Document document = readXML(XML, DTD);
-
-            NodeList tables = document.getElementsByTagName("tables");
-
-            for (int i = 0; i < tables.getLength(); i++) {
-                String tableName = document.getElementsByTagName("table-name").item(i).getFirstChild().getNodeValue();
-                String className = document.getElementsByTagName("class-name").item(i).getFirstChild().getNodeValue();
-                TableInfo tableInfo = new TableInfo();
-                tableInfo.setTableName(tableName);
-                tableInfo.setClassName(className);
-                GeneratorContext.addTable(tableName, tableInfo);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
 
     public static void readXml() {
         try {
-            Document document = readXML(XML_NEW, DTD_NEW);
+            Document document = readXML(XML_NEW);
             Element documentElement = document.getDocumentElement();
             readTableSetting(documentElement);
             readPropertiesSetting(documentElement);
@@ -73,19 +48,11 @@ public class XmlUtil {
      * @throws IOException
      * @throws SAXException
      */
-    private static Document readXML(String xmlPath, String dtdPath) throws ParserConfigurationException, IOException, SAXException {
+    private static Document readXML(String xmlPath) throws ParserConfigurationException, IOException, SAXException {
         URL resource = XmlUtil.class.getClassLoader().getResource(xmlPath);
         File file = new File(resource.getFile());
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder documentBuilder = factory.newDocumentBuilder();
-        documentBuilder.setEntityResolver((String publicId, String systemId) -> {
-            String suffix = ".dtd";
-            if (systemId.contains(suffix)) {
-                InputStream inputStream = XmlUtil.class.getClassLoader().getResourceAsStream(dtdPath);
-                return new InputSource(inputStream);
-            }
-            return null;
-        });
         Document document = documentBuilder.parse(new FileInputStream(file));
         return document;
     }

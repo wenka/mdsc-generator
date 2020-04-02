@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE setting SYSTEM "./dtd/generator.dtd">
-<setting>
+<setting xmlns="http://www.w3school.com.cn"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="./dtd/generator-1.0.0.xsd">
 
   <properties>
     <precision>high</precision>
@@ -9,6 +10,7 @@
     <jdbc.url>jdbc:mysql://****:3306/*?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true</jdbc.url>
     <jdbc.username>*</jdbc.username>
     <jdbc.password>**</jdbc.password>
+    <generate-level>controller</generate-level>
     <parent.package>com.mall.app.identity</parent.package>
     <dao.package>dao</dao.package>
     <service.package>service</service.package>
