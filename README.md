@@ -32,7 +32,7 @@ mdsc(model、dao、service、controller)。根据数据库表自动生成基于S
 <?xml version="1.0" encoding="UTF-8" ?>
 <setting xmlns="http://www.w3school.com.cn"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="./dtd/generator-1.0.0.xsd">
+         xsi:schemaLocation="http://www.wenka.top/xsd/generator-1.0.0.xsd">
   <properties>
     <precision>high</precision>
     <author>作者</author>
