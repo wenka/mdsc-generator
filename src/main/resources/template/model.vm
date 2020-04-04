@@ -17,7 +17,7 @@ import ${import};
 public class ${ModelSimpleName} #if(${extend})extends ${extend}#end {
 
     #foreach(${filed} in ${fields})
-/** ${filed.remark} */
+/** #if(${filed.primary})主键 #end${filed.remark} */
     private ${filed.javaType} ${filed.humpName};
 
     #end

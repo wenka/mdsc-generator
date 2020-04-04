@@ -8,7 +8,6 @@ import com.wenka.mdsc.generator.service.BaseGenFileService;
 import com.wenka.mdsc.generator.util.FolderUtil;
 import com.wenka.mdsc.generator.util.PropertiesUtil;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**

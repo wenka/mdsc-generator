@@ -57,6 +57,26 @@ public class StringUtil {
         return result;
     }
 
+    /**
+     * 首字母大写
+     *
+     * @param word
+     * @return
+     */
+    public static String initialsUpperCase(String word) {
+        if (StringUtils.isBlank(word)) {
+            return "";
+        }
+        char[] chars = new char[1];
+        chars[0] = word.charAt(0);
+        String result = word;
+        if (chars[0] >= 'a' && chars[0] <= 'z') {
+            String s = new String(chars);
+            result = word.replaceFirst(s, s.toUpperCase());
+        }
+        return result;
+    }
+
     public static void main(String[] args) {
         System.out.println(getHumpName("g_goods_appraises"));
     }

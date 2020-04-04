@@ -24,6 +24,12 @@ import java.util.Objects;
  */
 public abstract class BaseGenFileService implements GenFileService {
 
+    private FileChain fileChain;
+
+    public FileChain getFileChain() {
+        return fileChain;
+    }
+
     /**
      * 生成文件
      *
@@ -45,7 +51,7 @@ public abstract class BaseGenFileService implements GenFileService {
             template = ve.getTemplate(this.vmName(), "UTF-8");
             GeneratorContext.template.put(this.vmName(), template);
         }
-
+        this.fileChain = fileChain;
         // 填充数据
         VelocityContext ctx = new VelocityContext();
         Map<String, Object> templateData = this.templateData(tableInfo);
@@ -54,7 +60,7 @@ public abstract class BaseGenFileService implements GenFileService {
                 ctx.put(key, templateData.get(key));
             }
         }
-        Map<String, String> args = fileChain.getArgs();
+        Map<String, Object> args = fileChain.getArgs();
         if (args != null && !args.isEmpty()) {
             for (String key : args.keySet()) {
                 ctx.put(key, args.get(key));

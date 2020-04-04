@@ -3,6 +3,7 @@ package com.wenka.mdsc.generator.chain;
 import com.wenka.mdsc.generator.constants.Contants;
 import com.wenka.mdsc.generator.constants.PropertiesKey;
 import com.wenka.mdsc.generator.context.GeneratorContext;
+import com.wenka.mdsc.generator.model.Column;
 import com.wenka.mdsc.generator.model.TableInfo;
 import com.wenka.mdsc.generator.service.DBService;
 import com.wenka.mdsc.generator.service.GenFileService;
@@ -24,7 +25,7 @@ public class FileChain {
     private List<GenFileService> fileChain;
     private int index = 0;
 
-    private Map<String, String> args;
+    private Map<String, Object> args;
 
     public FileChain() {
         fileChain = new ArrayList<>(5);
@@ -57,7 +58,7 @@ public class FileChain {
     }
 
 
-    public Map<String, String> getArgs() {
+    public Map<String, Object> getArgs() {
         return args;
     }
 
@@ -77,6 +78,18 @@ public class FileChain {
             tableRemark = tableInfo.getClassName();
         }
         args.put("tableRemark", tableRemark);
+
+        // 加载列及主键
+        List<Column> tableColumns = dbService.getTableColumns(tableInfo.getTableName());
+        Column c = tableColumns.stream().filter(column -> {
+            return column.isPrimary();
+        }).sorted((c1, c2) -> {
+            return c1.getPkSeq() < c2.getPkSeq() ? 1 : -1;
+        }).findFirst().orElse(null);
+        args.put("PkName", c.getHumpName());
+        args.put("PkType", c.getJavaType());
+        args.put("pk", c);
+
         String parentPackage = PropertiesUtil.getValue(PropertiesKey.PARENT_PACKAGE);
         // Model 全限定名  Model 所在包  Model 简单类名
         String modelPackage = parentPackage + "." + PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE);

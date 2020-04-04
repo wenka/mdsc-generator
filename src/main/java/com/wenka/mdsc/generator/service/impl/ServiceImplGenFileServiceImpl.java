@@ -1,15 +1,21 @@
 package com.wenka.mdsc.generator.service.impl;
 
 import com.wenka.mdsc.generator.annotation.Bean;
+import com.wenka.mdsc.generator.annotation.Importer;
+import com.wenka.mdsc.generator.chain.FileChain;
 import com.wenka.mdsc.generator.constants.Contants;
 import com.wenka.mdsc.generator.constants.PropertiesKey;
+import com.wenka.mdsc.generator.model.Column;
 import com.wenka.mdsc.generator.model.TableInfo;
 import com.wenka.mdsc.generator.service.BaseGenFileService;
+import com.wenka.mdsc.generator.service.DBService;
 import com.wenka.mdsc.generator.util.FolderUtil;
 import com.wenka.mdsc.generator.util.PropertiesUtil;
+import com.wenka.mdsc.generator.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,6 +77,10 @@ public class ServiceImplGenFileServiceImpl extends BaseGenFileService {
     public Map<String, Object> templateData(TableInfo tableInfo) {
         Map<String, Object> args = new HashMap<>();
         args.put("idUtil", PropertiesUtil.getValue(PropertiesKey.ID_UTIL));
+
+        FileChain fileChain = this.getFileChain();
+        String pkName = (String) fileChain.getArgs().get("PkName");
+        args.put("setPkName", StringUtil.initialsUpperCase(pkName));
         return args;
     }
 

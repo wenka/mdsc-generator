@@ -30,7 +30,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      * @param record
      */
     public int add(${ModelSimpleName} record){
-        record.setId(${idUtil});
+        record.set${setPkName}(${idUtil});
         record.setCreateTime(new Date());
         record.setUpdateTime(new Date());
         return this.${DaoVariableName}.insertSelective(record);
@@ -59,11 +59,11 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
     /**
      * 根据Id查询${tableRemark}
      *
-     * @param id
+     * @param ${PkName}
      * @return
      */
-    public ${ModelSimpleName} selectById(String id){
-        return this.${DaoVariableName}.selectBySelective(new ${ModelSimpleName}().setId(id));
+    public ${ModelSimpleName} selectById(${PkType} ${PkName}){
+        return this.${DaoVariableName}.selectBySelective(new ${ModelSimpleName}().set${setPkName}(${PkName}));
     }
 
     /**

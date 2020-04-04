@@ -1,14 +1,20 @@
 package com.wenka.mdsc.generator.service.impl;
 
 import com.wenka.mdsc.generator.annotation.Bean;
+import com.wenka.mdsc.generator.annotation.Importer;
 import com.wenka.mdsc.generator.constants.Contants;
 import com.wenka.mdsc.generator.constants.PropertiesKey;
+import com.wenka.mdsc.generator.model.Column;
 import com.wenka.mdsc.generator.model.TableInfo;
 import com.wenka.mdsc.generator.service.BaseGenFileService;
+import com.wenka.mdsc.generator.service.DBService;
 import com.wenka.mdsc.generator.util.FolderUtil;
 import com.wenka.mdsc.generator.util.PropertiesUtil;
+import com.wenka.mdsc.generator.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +26,10 @@ import java.util.Map;
  */
 @Bean(order = 4)
 public class ServiceGenFileServiceImpl extends BaseGenFileService {
+
+    @Importer
+    private DBService dbService;
+
     /**
      * @return
      */
@@ -66,7 +76,17 @@ public class ServiceGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public Map<String, Object> templateData(TableInfo tableInfo) {
-        return null;
+        String tableName = tableInfo.getTableName();
+        Map<String, Object> args = new HashMap<>();
+        List<Column> columns = this.dbService.getTableColumns(tableName);
+        Column c = columns.stream().filter(column -> {
+            return column.isPrimary();
+        }).sorted((c1, c2) -> {
+            return c1.getPkSeq() < c2.getPkSeq() ? 1 : -1;
+        }).findFirst().orElse(null);
+        args.put("pkName", c.getHumpName());
+        args.put("pkType", c.getJavaType());
+        return args;
     }
 
 

@@ -51,8 +51,8 @@ public class ${ControllerSimpleName} {
      * @return
      */
     @DeleteMapping("{id}")
-    public ${SimplResponseModel} delete(@PathVariable("id") String id){
-        logger.info("删除【{}】操作,[id] => {}", "${tableRemark}", id);
+    public ${SimplResponseModel} delete(@PathVariable("id") ${PkType} id){
+        logger.info("删除【${tableRemark}】操作,[id] => {}", id);
         int i = this.${ServiceVariableName}.delete(id);
         return i == 0 ? ${SimplResponseModel}.error() : ${SimplResponseModel}.success();
     }
@@ -65,7 +65,7 @@ public class ${ControllerSimpleName} {
      */
     @GetMapping("{id}")
     public ${SimplResponseModel} getById(@PathVariable("id") String id){
-        logger.info("根据Id查询【{}】操作,[id] => {}", "${tableRemark}", id);
+        logger.info("根据Id查询【${tableRemark}】操作,[id] => {}", id);
         ${ModelSimpleName} record = this.${ServiceVariableName}.selectById(id);
         return ${SimplResponseModel}.success(record);
     }

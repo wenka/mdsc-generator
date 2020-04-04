@@ -3,6 +3,7 @@ package com.wenka.mdsc.generator.service;
 import com.wenka.mdsc.generator.model.Column;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IDEA
@@ -34,8 +35,8 @@ public interface DBService {
      * 获取表的主键
      *
      * @param tableName
-     * @return
+     * @return 列名:主键序号
      */
-    List<Column> getTablePrimaryKey(String tableName);
+    Map<String, Integer> getTablePrimaryKey(String tableName);
 
 }

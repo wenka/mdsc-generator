@@ -26,4 +26,13 @@ public class Column {
 
     private String remark;
 
+    /**
+     * 是否为主键
+     */
+    private boolean primary;
+
+    /**
+     * 主键序列号
+     */
+    private Integer pkSeq;
 }

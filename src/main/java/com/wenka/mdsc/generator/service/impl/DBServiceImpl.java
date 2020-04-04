@@ -11,8 +11,10 @@ import com.wenka.mdsc.generator.util.StringUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created with IDEA
@@ -38,6 +40,7 @@ public class DBServiceImpl implements DBService {
         if (GeneratorContext.TABLE_COLUMN_MAP.containsKey(tableName)) {
             return GeneratorContext.TABLE_COLUMN_MAP.get(tableName);
         }
+        Map<String, Integer> pkMap = this.getTablePrimaryKey(tableName);
         List<Column> columnList = this.dbConfig.execute(metaData -> {
             List<Column> columnLinkedList = new LinkedList<>();
             try {
@@ -53,7 +56,9 @@ public class DBServiceImpl implements DBService {
                     }
                     String columnType = this.dbConfig.getFieldType(dataType, digits);
                     String humpName = StringUtil.getHumpName(columnName);
-                    columnLinkedList.add(new Column(columnName, humpName, columnType, jdbcType, remarks));
+
+                    boolean isPk = pkMap.containsKey(columnName);
+                    columnLinkedList.add(new Column(columnName, humpName, columnType, jdbcType, remarks, isPk, pkMap.get(columnName)));
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -93,28 +98,20 @@ public class DBServiceImpl implements DBService {
      * @return
      */
     @Override
-    public List<Column> getTablePrimaryKey(String tableName) {
-        List<Column> execute = this.dbConfig.execute(metaData -> {
-            List<Column> columnLinkedList = new LinkedList<>();
+    public Map<String, Integer> getTablePrimaryKey(String tableName) {
+        Map<String, Integer> execute = this.dbConfig.execute(metaData -> {
+            Map<String, Integer> pkMap = new HashMap<>();
             try {
                 ResultSet primaryKeys = metaData.getPrimaryKeys(null, "%", tableName);
                 while (primaryKeys.next()) {
                     String columnName = primaryKeys.getString("COLUMN_NAME");
-                    int digits = primaryKeys.getInt("DECIMAL_DIGITS");
-                    int dataType = primaryKeys.getInt("DATA_TYPE");
-                    String remarks = primaryKeys.getString("REMARKS");
-                    String jdbcType = primaryKeys.getString("TYPE_NAME");
-                    if ("DATETIME".equals(jdbcType)) {
-                        jdbcType = "TIMESTAMP";
-                    }
-                    String columnType = this.dbConfig.getFieldType(dataType, digits);
-                    String humpName = StringUtil.getHumpName(columnName);
-                    columnLinkedList.add(new Column(columnName, humpName, columnType, jdbcType, remarks));
+                    Integer keySeq = primaryKeys.getInt("KEY_SEQ");
+                    pkMap.put(columnName, keySeq);
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            return columnLinkedList;
+            return pkMap;
         });
         return execute;
     }

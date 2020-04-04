@@ -27,7 +27,7 @@
   </sql>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    DELETE FROM ${tableName} WHERE id = #{id,jdbcType=VARCHAR}
+    DELETE FROM ${tableName} WHERE ${pk.name} = #{${pk.humpName},jdbcType=${pk.jdbcType}}
   </delete>
 
   <insert id="insertSelective" parameterType="${ModelName}">
@@ -65,7 +65,7 @@
         </if>
 #end
     </set>
-    where ID = #{id,jdbcType=VARCHAR}
+    where ${pk.name} = #{${pk.humpName},jdbcType=${pk.jdbcType}}
   </update>
 
   <select id="selectList" resultMap="BaseResultMap" parameterType="${ModelName}">

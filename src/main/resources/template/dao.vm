@@ -12,7 +12,7 @@ public interface ${DaoSimpleName} {
     /**
      * 根据主键删除${tableRemark}
      */
-    int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(${PkType} ${PkName});
 
     /**
      * 增加

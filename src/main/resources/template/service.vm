@@ -35,10 +35,10 @@ public interface ${ServiceSimpleName} {
     /**
      * 根据Id查询${tableRemark}
      *
-     * @param id
+     * @param ${PkName}
      * @return
      */
-    ${ModelSimpleName} selectById(String id);
+    ${ModelSimpleName} selectById(${PkType} ${PkName});
 
     /**
     * 分页查询${tableRemark}
