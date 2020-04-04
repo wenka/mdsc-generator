@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Date;
 
 /**
- * @description: 服务层接口实现
+ * @description: ${tableRemark}服务层接口实现
  */
 @Service
 @Transactional(propagation = Propagation.REQUIRED,rollbackFor = Exception.class)
@@ -25,7 +25,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
     private ${DaoSimpleName} ${DaoVariableName};
 
     /**
-     * 添加
+     * 添加${tableRemark}
      *
      * @param record
      */
@@ -37,7 +37,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
     }
 
     /**
-     * 修改
+     * 修改${tableRemark}
      *
      * @param record
      */
@@ -47,7 +47,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
     }
 
     /**
-     * 真实删除
+     * 真实删除${tableRemark}
      *
      * @param id
      * @return
@@ -57,7 +57,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
     }
 
     /**
-     * 根据Id查询
+     * 根据Id查询${tableRemark}
      *
      * @param id
      * @return
@@ -67,7 +67,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
     }
 
     /**
-    * 分页查询
+    * 分页查询${tableRemark}
     *
     * @param record
     * @return
@@ -79,7 +79,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
     }
 
     /**
-    * 全量查询列表
+    * 全量查询${tableRemark}列表
     *
     * @param record
     * @return

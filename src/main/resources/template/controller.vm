@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @description: 控制层
+ * @description: ${tableRemark}控制层
  */
 @RestController
 @RequestMapping("${ModelVariableName}")
@@ -27,7 +27,7 @@ public class ${ControllerSimpleName} {
      */
     @PostMapping("/")
     public ${SimplResponseModel} add(@RequestBody ${ModelSimpleName} record){
-        logger.info("添加操作,[record] => {}", record);
+        logger.info("添加${tableRemark}操作,[record] => {}", record);
         int i = this.${ServiceVariableName}.add(record);
         return i==0? ${SimplResponseModel}.error():${SimplResponseModel}.success();
     }
@@ -39,7 +39,7 @@ public class ${ControllerSimpleName} {
      */
     @PutMapping("/")
     public ${SimplResponseModel} update(@RequestBody ${ModelSimpleName} record){
-        logger.info("修改操作,[record] => {}", record);
+        logger.info("修改${tableRemark}操作,[record] => {}", record);
         int i = this.${ServiceVariableName}.update(record);
         return i == 0 ? ${SimplResponseModel}.error() : ${SimplResponseModel}.success();
     }
@@ -52,7 +52,7 @@ public class ${ControllerSimpleName} {
      */
     @DeleteMapping("{id}")
     public ${SimplResponseModel} delete(@PathVariable("id") String id){
-        logger.info("删除【{}】操作,[id] => {}", "${ModelSimpleName}", id);
+        logger.info("删除【{}】操作,[id] => {}", "${tableRemark}", id);
         int i = this.${ServiceVariableName}.delete(id);
         return i == 0 ? ${SimplResponseModel}.error() : ${SimplResponseModel}.success();
     }
@@ -65,7 +65,7 @@ public class ${ControllerSimpleName} {
      */
     @GetMapping("{id}")
     public ${SimplResponseModel} getById(@PathVariable("id") String id){
-        logger.info("根据Id查询【{}】操作,[id] => {}", "${ModelSimpleName}", id);
+        logger.info("根据Id查询【{}】操作,[id] => {}", "${tableRemark}", id);
         ${ModelSimpleName} record = this.${ServiceVariableName}.selectById(id);
         return ${SimplResponseModel}.success(record);
     }
@@ -78,7 +78,7 @@ public class ${ControllerSimpleName} {
     */
     @GetMapping("/page")
     public ${SimplResponseModel} page(@ModelAttribute ${ModelSimpleName} record){
-        logger.info("进行分页查询操作，[record] => {}", record);
+        logger.info("进行${tableRemark}分页查询操作，[record] => {}", record);
         return ${SimplResponseModel}.success(this.${ServiceVariableName}.selectByPage(record));
     }
 
@@ -90,7 +90,7 @@ public class ${ControllerSimpleName} {
     */
     @GetMapping("/")
     public ${SimplResponseModel} list(@ModelAttribute ${ModelSimpleName} record){
-        logger.info("进行全量查询操作，[record] => {}", record);
+        logger.info("进行${tableRemark}全量查询操作，[record] => {}", record);
         return ${SimplResponseModel}.success(this.${ServiceVariableName}.selectList(record));
     }
 

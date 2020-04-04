@@ -68,7 +68,7 @@ public class CodeGenerator {
             System.out.println("### 进行【" + table + " 】表文件生成：");
             fileChain = new FileChain();
             TableInfo tableInfo = allTable.get(table);
-//            fileChain.addChain(beans).execute(tableInfo);
+            fileChain.addChain(beans).execute(tableInfo);
         }
 
     }

@@ -1,9 +1,9 @@
 package com.wenka.mdsc.generator.service.impl;
 
 import com.wenka.mdsc.generator.annotation.Bean;
+import com.wenka.mdsc.generator.annotation.Importer;
 import com.wenka.mdsc.generator.constants.Contants;
 import com.wenka.mdsc.generator.constants.PropertiesKey;
-import com.wenka.mdsc.generator.context.GeneratorContext;
 import com.wenka.mdsc.generator.model.Column;
 import com.wenka.mdsc.generator.model.TableInfo;
 import com.wenka.mdsc.generator.service.BaseGenFileService;
@@ -23,6 +23,10 @@ import java.util.*;
  */
 @Bean(order = 1)
 public class ModelGenFileServiceImpl extends BaseGenFileService {
+
+    @Importer
+    private DBService dbService;
+
     /**
      * @return
      */
@@ -68,8 +72,7 @@ public class ModelGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public Map<String, Object> templateData(TableInfo tableInfo) {
-        DBService dbService = GeneratorContext.getBean(DBServiceImpl.class);
-        List<Column> tableColumns = dbService.getTableColumns(tableInfo.getTableName());
+        List<Column> tableColumns = this.dbService.getTableColumns(tableInfo.getTableName());
         Map<String, Object> args = new HashMap<>();
         args.put("author", PropertiesUtil.getValue(PropertiesKey.AUTHOR));
 

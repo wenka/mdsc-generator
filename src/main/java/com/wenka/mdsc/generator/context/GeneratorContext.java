@@ -59,7 +59,7 @@ public class GeneratorContext {
     public static <T> T getBean(Class<T> tClass) {
         Collection<BeanInfo> values = CONTEXT.values();
         BeanInfo info = values.stream().filter(beanInfo -> {
-            return beanInfo.getBeanClass() == tClass;
+            return tClass.isAssignableFrom(beanInfo.getBeanClass());
         }).findAny().orElse(null);
         return Objects.isNull(info) ? null : (T) info.getBean();
     }

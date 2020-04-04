@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.sql.*;
+import java.util.Properties;
 import java.util.function.Function;
 
 /**
@@ -80,7 +81,13 @@ public class DBConfig {
         Connection connection;
         try {
             Class.forName(this.getDriver());
-            connection = DriverManager.getConnection(this.getUrl(), this.getUsername(), this.getPassword());
+            Properties properties = new Properties();
+            properties.setProperty("user", this.getUsername());
+            properties.setProperty("password", this.getPassword());
+            properties.setProperty("remarks", "true");
+            properties.setProperty("useInformationSchema", "true");
+            connection = DriverManager.getConnection(this.getUrl(), properties);
+            connection.setClientInfo(properties);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

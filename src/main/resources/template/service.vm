@@ -6,26 +6,26 @@ import ${ModelName};
 import java.util.List;
 
 /**
- * @description: 服务层接口
+ * @description: ${tableRemark}服务层接口
  */
 public interface ${ServiceSimpleName} {
 
     /**
-     * 添加
+     * 添加${tableRemark}
      *
      * @param record
      */
     int add(${ModelSimpleName} record);
 
     /**
-     * 修改
+     * 修改${tableRemark}
      *
      * @param record
      */
     int update(${ModelSimpleName} record);
 
     /**
-     * 真实删除
+     * 真实删除${tableRemark}
      *
      * @param id
      * @return
@@ -33,7 +33,7 @@ public interface ${ServiceSimpleName} {
     int delete(String id);
 
     /**
-     * 根据Id查询
+     * 根据Id查询${tableRemark}
      *
      * @param id
      * @return
@@ -41,7 +41,7 @@ public interface ${ServiceSimpleName} {
     ${ModelSimpleName} selectById(String id);
 
     /**
-    * 分页查询
+    * 分页查询${tableRemark}
     *
     * @param record
     * @return
@@ -49,7 +49,7 @@ public interface ${ServiceSimpleName} {
     PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record);
 
     /**
-    * 全量查询列表
+    * 全量查询${tableRemark}列表
     *
     * @param record
     * @return

@@ -8,6 +8,8 @@ import ${import};
 #end
 
 /**
+ * ${tableRemark}
+ *
  * @author ${author}
  */
 @Data

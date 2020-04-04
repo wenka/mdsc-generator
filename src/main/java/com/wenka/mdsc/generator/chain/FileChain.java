@@ -2,10 +2,13 @@ package com.wenka.mdsc.generator.chain;
 
 import com.wenka.mdsc.generator.constants.Contants;
 import com.wenka.mdsc.generator.constants.PropertiesKey;
+import com.wenka.mdsc.generator.context.GeneratorContext;
 import com.wenka.mdsc.generator.model.TableInfo;
+import com.wenka.mdsc.generator.service.DBService;
 import com.wenka.mdsc.generator.service.GenFileService;
 import com.wenka.mdsc.generator.util.PropertiesUtil;
 import com.wenka.mdsc.generator.util.StringUtil;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -67,6 +70,13 @@ public class FileChain {
         args = new LinkedHashMap<>();
         String className = tableInfo.getClassName();
         args.put("tableName", tableInfo.getTableName());
+        // 获取表注释
+        DBService dbService = GeneratorContext.getBean(DBService.class);
+        String tableRemark = dbService.getTableRemark(tableInfo.getTableName());
+        if (StringUtils.isBlank(tableRemark)) {
+            tableRemark = tableInfo.getClassName();
+        }
+        args.put("tableRemark", tableRemark);
         String parentPackage = PropertiesUtil.getValue(PropertiesKey.PARENT_PACKAGE);
         // Model 全限定名  Model 所在包  Model 简单类名
         String modelPackage = parentPackage + "." + PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE);

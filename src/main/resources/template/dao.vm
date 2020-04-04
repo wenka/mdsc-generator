@@ -10,7 +10,7 @@ import java.util.List;
 public interface ${DaoSimpleName} {
 
     /**
-     * 根据主键删除
+     * 根据主键删除${tableRemark}
      */
     int deleteByPrimaryKey(String id);
 
@@ -20,17 +20,17 @@ public interface ${DaoSimpleName} {
     int insertSelective(${ModelSimpleName} record);
 
     /**
-     * 根据条件查询
+     * 根据条件查询${tableRemark}
      */
     ${ModelSimpleName} selectBySelective(${ModelSimpleName} record);
 
     /**
-     * 根据主键修改
+     * 根据主键修改${tableRemark}
      */
     int updateByPrimaryKeySelective(${ModelSimpleName} record);
 
     /**
-     * 根据条件查询全部
+     * 根据条件查询全部${tableRemark}
      *
      * @return
      */

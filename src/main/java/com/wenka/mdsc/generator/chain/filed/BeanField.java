@@ -37,8 +37,10 @@ public class BeanField extends AbstractFieldChain {
             throw new RuntimeException(type + " " + name + " : bean not found.");
         }
         field.setAccessible(true);
-        if (String.class.isAssignableFrom(type)) { // String 类型
+        if (type.isAssignableFrom(beanByName.getClass())) {
             field.set(object, beanByName);
+        }else {
+            throw new RuntimeException(type + " " + name + " : bean not found.");
         }
         return true;
     }

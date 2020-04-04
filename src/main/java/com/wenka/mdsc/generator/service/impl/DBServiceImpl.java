@@ -21,7 +21,7 @@ import java.util.List;
  * @date 2020/03/23  下午 04:17
  * @description:
  */
-@Bean
+@Bean("dbService")
 public class DBServiceImpl implements DBService {
 
     @Importer
@@ -74,9 +74,9 @@ public class DBServiceImpl implements DBService {
     public String getTableRemark(String tableName) {
         String remarks = this.dbConfig.execute(metaData -> {
             try {
-                ResultSet tables = metaData.getTables(null, "%", tableName, new String[]{"TABLE"});
-                if (tables.next()) {
-                    return tables.getString("REMARKS");
+                ResultSet resultSet = metaData.getTables(null, "%", tableName, new String[]{"TABLE"});
+                if (resultSet.next()) {
+                    return resultSet.getString("REMARKS");
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
