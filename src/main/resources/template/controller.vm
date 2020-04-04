@@ -26,10 +26,10 @@ public class ${ControllerSimpleName} {
      * @param record
      */
     @PostMapping("/")
-    public ${SimplResponseModel} add(@RequestBody ${ModelSimpleName} record){
+    public ${SimplResponseModel} add(@RequestBody ${ModelSimpleName} record) {
         logger.info("添加${tableRemark}操作,[record] => {}", record);
         int i = this.${ServiceVariableName}.add(record);
-        return i==0? ${SimplResponseModel}.error():${SimplResponseModel}.success();
+        return i == 0 ? ${SimplResponseModel}.error() : ${SimplResponseModel}.success();
     }
 
     /**
@@ -38,7 +38,7 @@ public class ${ControllerSimpleName} {
      * @param record
      */
     @PutMapping("/")
-    public ${SimplResponseModel} update(@RequestBody ${ModelSimpleName} record){
+    public ${SimplResponseModel} update(@RequestBody ${ModelSimpleName} record) {
         logger.info("修改${tableRemark}操作,[record] => {}", record);
         int i = this.${ServiceVariableName}.update(record);
         return i == 0 ? ${SimplResponseModel}.error() : ${SimplResponseModel}.success();
@@ -51,7 +51,7 @@ public class ${ControllerSimpleName} {
      * @return
      */
     @DeleteMapping("{id}")
-    public ${SimplResponseModel} delete(@PathVariable("id") ${PkType} id){
+    public ${SimplResponseModel} delete(@PathVariable("id") ${PkType} id) {
         logger.info("删除【${tableRemark}】操作,[id] => {}", id);
         int i = this.${ServiceVariableName}.delete(id);
         return i == 0 ? ${SimplResponseModel}.error() : ${SimplResponseModel}.success();
@@ -64,32 +64,36 @@ public class ${ControllerSimpleName} {
      * @return
      */
     @GetMapping("{id}")
-    public ${SimplResponseModel} getById(@PathVariable("id") String id){
+    public ${SimplResponseModel} getById(@PathVariable("id") ${PkType} id) {
         logger.info("根据Id查询【${tableRemark}】操作,[id] => {}", id);
         ${ModelSimpleName} record = this.${ServiceVariableName}.selectById(id);
         return ${SimplResponseModel}.success(record);
     }
 
     /**
-    * 分页查询
-    *
-    * @param record
-    * @return
-    */
+     * 分页查询
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param record
+     * @return
+     */
     @GetMapping("/page")
-    public ${SimplResponseModel} page(@ModelAttribute ${ModelSimpleName} record){
+    public ${SimplResponseModel} page(@RequestParam(required = false) Integer pageNum,
+                       @RequestParam(required = false) Integer pageSize,
+                       @ModelAttribute ${ModelSimpleName} record) {
         logger.info("进行${tableRemark}分页查询操作，[record] => {}", record);
-        return ${SimplResponseModel}.success(this.${ServiceVariableName}.selectByPage(record));
+        return ${SimplResponseModel}.success(this.${ServiceVariableName}.selectByPage(record, pageNum, pageSize));
     }
 
     /**
-    * 全量查询列表
-    *
-    * @param record
-    * @return
-    */
+     * 全量查询列表
+     *
+     * @param record
+     * @return
+     */
     @GetMapping("/")
-    public ${SimplResponseModel} list(@ModelAttribute ${ModelSimpleName} record){
+    public ${SimplResponseModel} list(@ModelAttribute ${ModelSimpleName} record) {
         logger.info("进行${tableRemark}全量查询操作，[record] => {}", record);
         return ${SimplResponseModel}.success(this.${ServiceVariableName}.selectList(record));
     }

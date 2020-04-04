@@ -29,7 +29,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      *
      * @param record
      */
-    public int add(${ModelSimpleName} record){
+    public int add(${ModelSimpleName} record) {
         record.set${setPkName}(${idUtil});
         record.setCreateTime(new Date());
         record.setUpdateTime(new Date());
@@ -41,7 +41,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      *
      * @param record
      */
-    public int update(${ModelSimpleName} record){
+    public int update(${ModelSimpleName} record) {
         record.setUpdateTime(new Date());
         return this.${DaoVariableName}.updateByPrimaryKeySelective(record);
     }
@@ -52,7 +52,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      * @param id
      * @return
      */
-    public int delete(String id){
+    public int delete(String id) {
         return this.${DaoVariableName}.deleteByPrimaryKey(id);
     }
 
@@ -62,29 +62,31 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      * @param ${PkName}
      * @return
      */
-    public ${ModelSimpleName} selectById(${PkType} ${PkName}){
+    public ${ModelSimpleName} selectById(${PkType} ${PkName}) {
         return this.${DaoVariableName}.selectBySelective(new ${ModelSimpleName}().set${setPkName}(${PkName}));
     }
 
     /**
-    * 分页查询${tableRemark}
-    *
-    * @param record
-    * @return
-    */
-    public PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record){
-        Page<${ModelSimpleName}> page = PageHelper.startPage(record.getPageNum(), record.getPageSize());
+     * 分页查询${tableRemark}
+     *
+     * @param record
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    public PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record, Integer pageNum, Integer pageSize) {
+        Page<${ModelSimpleName}> page = PageHelper.startPage(pageNum, pageSize);
         this.${DaoVariableName}.selectList(record);
         return page.toPageInfo();
     }
 
     /**
-    * 全量查询${tableRemark}列表
-    *
-    * @param record
-    * @return
-    */
-    public List<${ModelSimpleName}> selectList(${ModelSimpleName} record){
+     * 全量查询${tableRemark}列表
+     *
+     * @param record
+     * @return
+     */
+    public List<${ModelSimpleName}> selectList(${ModelSimpleName} record) {
         return this.${DaoVariableName}.selectList(record);
     }
 

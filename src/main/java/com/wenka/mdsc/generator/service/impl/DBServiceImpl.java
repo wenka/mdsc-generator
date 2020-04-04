@@ -53,6 +53,8 @@ public class DBServiceImpl implements DBService {
                     String jdbcType = columns.getString("TYPE_NAME");
                     if ("DATETIME".equals(jdbcType)) {
                         jdbcType = "TIMESTAMP";
+                    } else if ("TEXT".equals(jdbcType)) {
+                        jdbcType = "VARCHAR";
                     }
                     String columnType = this.dbConfig.getFieldType(dataType, digits);
                     String humpName = StringUtil.getHumpName(columnName);

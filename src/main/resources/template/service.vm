@@ -41,19 +41,21 @@ public interface ${ServiceSimpleName} {
     ${ModelSimpleName} selectById(${PkType} ${PkName});
 
     /**
-    * 分页查询${tableRemark}
-    *
-    * @param record
-    * @return
-    */
-    PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record);
+     * 分页查询${tableRemark}
+     *
+     * @param record
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record, Integer pageNum, Integer pageSize);
 
     /**
-    * 全量查询${tableRemark}列表
-    *
-    * @param record
-    * @return
-    */
+     * 全量查询${tableRemark}列表
+     *
+     * @param record
+     * @return
+     */
     List<${ModelSimpleName}> selectList(${ModelSimpleName} record);
 
 }
