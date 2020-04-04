@@ -2,6 +2,7 @@
 package com.wenka.mdsc.generator.service.impl;
 
 import com.wenka.mdsc.generator.annotation.Bean;
+import com.wenka.mdsc.generator.annotation.Importer;
 import com.wenka.mdsc.generator.config.DBConfig;
 import com.wenka.mdsc.generator.context.GeneratorContext;
 import com.wenka.mdsc.generator.model.Column;
@@ -23,6 +24,9 @@ import java.util.List;
 @Bean
 public class DBServiceImpl implements DBService {
 
+    @Importer
+    private DBConfig dbConfig;
+
     /**
      * 获取表字段及对应的java类型
      *
@@ -34,9 +38,8 @@ public class DBServiceImpl implements DBService {
         if (GeneratorContext.TABLE_COLUMN_MAP.containsKey(tableName)) {
             return GeneratorContext.TABLE_COLUMN_MAP.get(tableName);
         }
-        List<Column> columnList = new LinkedList<>();
-        DBConfig dbConfig = GeneratorContext.getBean(DBConfig.class);
-        dbConfig.execute(metaData -> {
+        List<Column> columnList = this.dbConfig.execute(metaData -> {
+            List<Column> columnLinkedList = new LinkedList<>();
             try {
                 ResultSet columns = metaData.getColumns(null, "%", tableName, "%");
                 while (columns.next()) {
@@ -45,19 +48,74 @@ public class DBServiceImpl implements DBService {
                     int dataType = columns.getInt("DATA_TYPE");
                     String remarks = columns.getString("REMARKS");
                     String jdbcType = columns.getString("TYPE_NAME");
-                    if ("DATETIME".equals(jdbcType)){
+                    if ("DATETIME".equals(jdbcType)) {
                         jdbcType = "TIMESTAMP";
                     }
-                    String columnType = dbConfig.getFieldType(dataType, digits);
+                    String columnType = this.dbConfig.getFieldType(dataType, digits);
                     String humpName = StringUtil.getHumpName(columnName);
-                    columnList.add(new Column(columnName, humpName, columnType, jdbcType, remarks));
+                    columnLinkedList.add(new Column(columnName, humpName, columnType, jdbcType, remarks));
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            return true;
+            return columnLinkedList;
         });
         GeneratorContext.TABLE_COLUMN_MAP.putIfAbsent(tableName, columnList);
         return columnList;
+    }
+
+    /**
+     * 获取表注释
+     *
+     * @param tableName
+     * @return
+     */
+    @Override
+    public String getTableRemark(String tableName) {
+        String remarks = this.dbConfig.execute(metaData -> {
+            try {
+                ResultSet tables = metaData.getTables(null, "%", tableName, new String[]{"TABLE"});
+                if (tables.next()) {
+                    return tables.getString("REMARKS");
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return "";
+        });
+        return remarks;
+    }
+
+    /**
+     * 获取表的主键
+     *
+     * @param tableName
+     * @return
+     */
+    @Override
+    public List<Column> getTablePrimaryKey(String tableName) {
+        List<Column> execute = this.dbConfig.execute(metaData -> {
+            List<Column> columnLinkedList = new LinkedList<>();
+            try {
+                ResultSet primaryKeys = metaData.getPrimaryKeys(null, "%", tableName);
+                while (primaryKeys.next()) {
+                    String columnName = primaryKeys.getString("COLUMN_NAME");
+                    int digits = primaryKeys.getInt("DECIMAL_DIGITS");
+                    int dataType = primaryKeys.getInt("DATA_TYPE");
+                    String remarks = primaryKeys.getString("REMARKS");
+                    String jdbcType = primaryKeys.getString("TYPE_NAME");
+                    if ("DATETIME".equals(jdbcType)) {
+                        jdbcType = "TIMESTAMP";
+                    }
+                    String columnType = this.dbConfig.getFieldType(dataType, digits);
+                    String humpName = StringUtil.getHumpName(columnName);
+                    columnLinkedList.add(new Column(columnName, humpName, columnType, jdbcType, remarks));
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+            return columnLinkedList;
+        });
+        return execute;
     }
 }

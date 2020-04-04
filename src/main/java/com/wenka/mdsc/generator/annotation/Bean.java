@@ -7,7 +7,7 @@ import java.lang.annotation.*;
  *
  * @author wenka wkwenka@gmail.com
  * @date 2020/03/25  上午 10:00
- * @description:
+ * @description: 自动创建 bean，加入 bean 管理器
  */
 @Documented
 @Target(ElementType.TYPE)

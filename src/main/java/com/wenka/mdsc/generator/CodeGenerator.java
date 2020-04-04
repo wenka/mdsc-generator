@@ -7,6 +7,7 @@ import com.wenka.mdsc.generator.context.GeneratorContext;
 import com.wenka.mdsc.generator.factory.AbstractFactory;
 import com.wenka.mdsc.generator.factory.FactoryProducer;
 import com.wenka.mdsc.generator.model.TableInfo;
+import com.wenka.mdsc.generator.resolve.BeanLoadResolve;
 import com.wenka.mdsc.generator.resolve.ClassPathBeanScanner;
 import com.wenka.mdsc.generator.service.GenFileService;
 import com.wenka.mdsc.generator.util.FolderUtil;
@@ -25,23 +26,8 @@ import java.util.Set;
  */
 public class CodeGenerator {
 
-    public static void run() {
+    private static void run() {
         init();
-    }
-
-
-    /**
-     * 初始化上下文
-     */
-    private static void initContext() {
-        AbstractFactory resolverFactory = FactoryProducer.getFactory(FactoryType.RESOLVER);
-        ClassPathBeanScanner beanScanner = resolverFactory.createBean(ClassPathBeanScanner.class);
-        Set<Class<?>> classes = beanScanner.scanBeanClasses(CodeGenerator.class.getPackage().getName());
-
-        AbstractFactory beanFactory = FactoryProducer.getFactory(FactoryType.BEAN);
-        for (Class c : classes) {
-            GeneratorContext.register(beanFactory.createBean(c));
-        }
     }
 
     /**
@@ -62,7 +48,7 @@ public class CodeGenerator {
     private static void init() {
         initXMLValue();
         initGlobalValue();
-        initContext();
+        BeanLoadResolve.getInstance().load();
     }
 
     /**
@@ -82,7 +68,7 @@ public class CodeGenerator {
             System.out.println("### 进行【" + table + " 】表文件生成：");
             fileChain = new FileChain();
             TableInfo tableInfo = allTable.get(table);
-            fileChain.addChain(beans).execute(tableInfo);
+//            fileChain.addChain(beans).execute(tableInfo);
         }
 
     }

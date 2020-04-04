@@ -21,4 +21,21 @@ public interface DBService {
      */
     List<Column> getTableColumns(String table);
 
+
+    /**
+     * 获取表注释
+     *
+     * @param tableName
+     * @return
+     */
+    String getTableRemark(String tableName);
+
+    /**
+     * 获取表的主键
+     *
+     * @param tableName
+     * @return
+     */
+    List<Column> getTablePrimaryKey(String tableName);
+
 }

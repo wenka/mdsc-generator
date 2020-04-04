@@ -4,6 +4,7 @@ import com.wenka.mdsc.generator.annotation.Bean;
 import com.wenka.mdsc.generator.model.BeanInfo;
 import com.wenka.mdsc.generator.model.Column;
 import com.wenka.mdsc.generator.model.TableInfo;
+import com.wenka.mdsc.generator.util.StringUtil;
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 
@@ -44,7 +45,7 @@ public class GeneratorContext {
             beanName = tClass.getSimpleName();
         }
         int order = bean.order();
-        BeanInfo beanInfo = new BeanInfo(beanName, tClass, order, t);
+        BeanInfo beanInfo = new BeanInfo(StringUtil.initialsLowerCase(beanName), tClass, order, t);
         CONTEXT.put(beanName, beanInfo);
     }
 
@@ -55,12 +56,26 @@ public class GeneratorContext {
      * @param <T>
      * @return
      */
-    public static synchronized <T> T getBean(Class<T> tClass) {
+    public static <T> T getBean(Class<T> tClass) {
         Collection<BeanInfo> values = CONTEXT.values();
         BeanInfo info = values.stream().filter(beanInfo -> {
             return beanInfo.getBeanClass() == tClass;
         }).findAny().orElse(null);
         return Objects.isNull(info) ? null : (T) info.getBean();
+    }
+
+    /**
+     * 获取所有 bean
+     *
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> getBeans() {
+        Collection<BeanInfo> values = CONTEXT.values();
+        List<T> resultList = values.stream().map(beanInfo -> {
+            return (T) beanInfo.getBean();
+        }).collect(Collectors.toList());
+        return resultList;
     }
 
     /**
@@ -70,7 +85,7 @@ public class GeneratorContext {
      * @param <T>
      * @return
      */
-    public static synchronized <T> List<T> getBeans(Class<T> tClass) {
+    public static <T> List<T> getBeans(Class<T> tClass) {
         Collection<BeanInfo> values = CONTEXT.values();
         List<T> resultList = values.stream().filter(beanInfo -> {
             return tClass.isAssignableFrom(beanInfo.getBeanClass());
@@ -81,6 +96,17 @@ public class GeneratorContext {
         }).collect(Collectors.toList());
         return resultList;
     }
+
+    public static <T> T getBeanByName(String name, Class<T> tClass) {
+        Collection<BeanInfo> values = CONTEXT.values();
+        T t = values.stream().filter(beanInfo -> {
+            return tClass.isAssignableFrom(beanInfo.getBeanClass()) && beanInfo.getBeanName().equals(name);
+        }).map(beanInfo -> {
+            return (T) beanInfo.getBean();
+        }).findAny().orElseGet(null);
+        return t;
+    }
+
 
     public static void addTable(String tableName, TableInfo tableInfo) {
         TABLE_MAP.put(tableName, tableInfo);

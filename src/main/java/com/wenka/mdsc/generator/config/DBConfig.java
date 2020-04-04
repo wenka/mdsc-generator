@@ -20,7 +20,7 @@ import java.util.function.Function;
  */
 @Data
 @Accessors(chain = true)
-@Bean
+@Bean("dbConfig")
 public class DBConfig {
 
     @Value(PropertiesKey.JDBC_URL)
@@ -102,11 +102,12 @@ public class DBConfig {
      *
      * @param function
      */
-    public void execute(Function<DatabaseMetaData, Boolean> function) {
+    public <T> T execute(Function<DatabaseMetaData, T> function) {
         Connection connection = this.getConnection();
         DatabaseMetaData databaseMetaData = this.getDatabaseMetaData(connection);
         try {
-            function.apply(databaseMetaData);
+            T apply = function.apply(databaseMetaData);
+            return apply;
         } catch (Exception e) {
             throw new RuntimeException(e);
         } finally {
