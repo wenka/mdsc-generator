@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.w3school.com.cn"
+           xmlns="http://www.w3school.com.cn"
+           elementFormDefault="qualified">
+  <xs:element name="setting" type="Model">
+  </xs:element>
+  <xs:complexType name="Model">
+    <xs:all>
+      <xs:element name="properties" type="Properties"></xs:element>
+      <xs:element name="tables" type="tables"></xs:element>
+    </xs:all>
+  </xs:complexType>
+
+  <xs:complexType name="Properties">
+    <xs:sequence>
+      <xs:element name="precision">
+        <xs:annotation>
+          <xs:documentation source="description">
+            精度：high | low
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="high"/>
+            <xs:enumeration value="low"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="author" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            java文件文档注释 @author
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="jdbc.driver" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            JDBC 连接驱动
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="jdbc.url" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            JDBC 连接URL
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="jdbc.username" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            JDBC 连接用户名
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="jdbc.password" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            JDBC 连接密码
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="generate-level">
+        <xs:annotation>
+          <xs:documentation source="description">
+            生成层级：dao（只生成DAO层文件） service（生成包含Model，DAO层，SERVICE层文件） controller（生成所有文件）
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="dao"/>
+            <xs:enumeration value="service"/>
+            <xs:enumeration value="controller"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="multi-condition-query">
+        <xs:annotation>
+          <xs:documentation source="description">
+            是否生成多条件查询功能：true | false
+          </xs:documentation>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+
+      <xs:element name="parent.package" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            所生成的java类的共有父包
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="dao.package" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            DAO层所在包(不包含父包)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="service.package" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            SERVICE层所在包(不包含父包)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="controller.package" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            CONTROLLER层所在包(不包含父包)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="module.path" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            所生成文件的根路径 即：项目模块所在的绝对路径
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="xml.path" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            XML层所在包，resource下的相对路径
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="base-model" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            所生成Model的基类
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="ignore-column" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            忽略在Model中生成的列字段(已存在于基类中)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="id-util" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            SERVICE 层新增方法中，设置主键所需要的静态方法
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+      <xs:element name="result-model" type="xs:string">
+        <xs:annotation>
+          <xs:documentation source="description">
+            CONTROLLER层的统一返回，必须有success(),error(),success(Object o)等静态方法（如：com.mall.commons.vo.Result）
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="tables">
+    <xs:sequence>
+      <xs:element name="table" minOccurs="1" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation source="description">
+            表配置：table-name(表名) class-name(实体类名)
+          </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+          <xs:attribute name="table-name" type="xs:string"/>
+          <xs:attribute name="class-name" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

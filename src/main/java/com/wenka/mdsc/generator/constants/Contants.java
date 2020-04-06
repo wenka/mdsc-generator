@@ -19,6 +19,7 @@ public class Contants {
      * 包默认值
      */
     public final static String DEFAULT_MODEL = "model";
+    public final static String DEFAULT_MODEL_PO = "po";
     public final static String DEFAULT_DAO = "mapper";
     public final static String DEFAULT_SERVICE = "service";
     public final static String DEFAULT_SERVICE_IMPL = "impl";

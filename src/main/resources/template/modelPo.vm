@@ -1,0 +1,27 @@
+package ${ModelPoPackage};
+
+import lombok.Data;
+import lombok.experimental.Accessors;
+
+#foreach(${import} in ${importSets})
+import ${import};
+#end
+
+/**
+ * ${tableRemark}参数对象
+ *
+ * @author ${author}
+ */
+@Data
+@Accessors(chain = true)
+public class ${ModelPoSimpleName} {
+
+    #foreach(${filed} in ${fields})
+/**
+     * ${filed.remark}
+     */
+    private ${filed.javaType} ${filed.humpName};
+
+    #end
+
+}

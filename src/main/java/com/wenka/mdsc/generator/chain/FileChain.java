@@ -98,6 +98,14 @@ public class FileChain {
         args.put("ModelSimpleName", className);
         args.put("ModelVariableName", StringUtil.initialsLowerCase(className));
 
+        // ModelPo 全限定名  ModelPo 所在包  ModelPo 简单类名
+        String modelPoPackage = parentPackage + "." + PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE) + "." + Contants.DEFAULT_MODEL_PO;
+        String modelPoSimpleName = className + "Po";
+        args.put("ModelPoPackage", modelPoPackage);
+        args.put("ModelPoName", modelPackage + "." + modelPoSimpleName);
+        args.put("ModelPoSimpleName", modelPoSimpleName);
+        args.put("ModelPoVariableName", StringUtil.initialsLowerCase(modelPoSimpleName));
+
         // Dao 全限定名  Dao 所在包  Dao 简单类名 Dao 类对应变量名(首字母小写的简单类名)
         String daoPackage = parentPackage + "." + PropertiesUtil.getValue(PropertiesKey.DAO_PACKAGE);
         args.put("DaoPackage", daoPackage);

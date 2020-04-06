@@ -1,5 +1,7 @@
 package com.wenka.mdsc.generator.util;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -33,6 +35,11 @@ public class PropertiesUtil {
 
     public static String getValue(String name) {
         return properties.getProperty(name);
+    }
+
+    public static boolean getBooleanValue(String name) {
+        String property = properties.getProperty(name);
+        return "true".equals(property) ? true : false;
     }
 
     public static void putIfAbsent(String key, String value) {

@@ -50,5 +50,6 @@ public class PropertiesKey {
      * 生成文件等级 dao,service,controller
      */
     public final static String GENERATE_LEVEL = "generate-level";
+    public final static String MULI_CONDITIOM_QUERY = "multi-condition-query";
 
 }
