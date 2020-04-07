@@ -33,7 +33,7 @@ public class MapperGenFileServiceImpl extends BaseGenFileService {
      */
     @Override
     public boolean support() {
-        return true;
+        return !PropertiesUtil.getBooleanValue(PropertiesKey.MULI_CONDITIOM_QUERY);
     }
 
     /**

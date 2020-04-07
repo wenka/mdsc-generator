@@ -11,7 +11,6 @@ import com.wenka.mdsc.generator.service.DBService;
 import com.wenka.mdsc.generator.util.FolderUtil;
 import com.wenka.mdsc.generator.util.PropertiesUtil;
 import com.wenka.mdsc.generator.util.StringUtil;
-import org.apache.commons.lang.StringUtils;
 
 import java.util.*;
 
@@ -82,7 +81,6 @@ public class ModelPoGenFileServiveImpl extends BaseGenFileService {
         args.put("author", PropertiesUtil.getValue(PropertiesKey.AUTHOR));
 
         Set<String> imports = new HashSet<>();
-        List<Column> fields = new ArrayList<>();
         tableColumns.stream().forEach(column -> {
 
             // Model 的 String 类型字段的生成策略
@@ -121,7 +119,6 @@ public class ModelPoGenFileServiveImpl extends BaseGenFileService {
                 columns.add(ltColumn);
                 columns.add(leColumn);
             }
-            fields.add(column);
             if ("Date".equals(column.getJavaType())) {
                 imports.add("java.util.Date");
             } else if ("BigDecimal".equals(column.getJavaType())) {
