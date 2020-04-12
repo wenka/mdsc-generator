@@ -1,6 +1,9 @@
 package ${ControllerPackage};
 
 import ${ModelName};
+#if(${multiConditionQuery})
+import ${ModelPoName};
+#end
 import ${ServiceName};
 import ${responseModel};
 import org.slf4j.Logger;
@@ -81,7 +84,7 @@ public class ${ControllerSimpleName} {
     @GetMapping("/page")
     public ${SimplResponseModel} page(@RequestParam(required = false) Integer pageNum,
                        @RequestParam(required = false) Integer pageSize,
-                       @ModelAttribute ${ModelSimpleName} record) {
+                       @ModelAttribute #if(${multiConditionQuery})${ModelPoSimpleName}#else${ModelSimpleName}#end record) {
         logger.info("进行${tableRemark}分页查询操作，[record] => {}", record);
         return ${SimplResponseModel}.success(this.${ServiceVariableName}.selectByPage(record, pageNum, pageSize));
     }
@@ -93,7 +96,7 @@ public class ${ControllerSimpleName} {
      * @return
      */
     @GetMapping("/")
-    public ${SimplResponseModel} list(@ModelAttribute ${ModelSimpleName} record) {
+    public ${SimplResponseModel} list(@ModelAttribute #if(${multiConditionQuery})${ModelPoSimpleName}#else${ModelSimpleName}#end record) {
         logger.info("进行${tableRemark}全量查询操作，[record] => {}", record);
         return ${SimplResponseModel}.success(this.${ServiceVariableName}.selectList(record));
     }

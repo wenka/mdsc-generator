@@ -21,7 +21,7 @@ import java.util.*;
  * @date 2020/03/24  下午 02:25
  * @description:
  */
-@Bean(order = 1)
+@Bean(order = 0)
 public class ModelGenFileServiceImpl extends BaseGenFileService {
 
     @Importer

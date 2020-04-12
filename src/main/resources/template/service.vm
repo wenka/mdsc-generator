@@ -2,6 +2,9 @@ package ${ServicePackage};
 
 import com.github.pagehelper.PageInfo;
 import ${ModelName};
+#if(${multiConditionQuery})
+import ${ModelPoName};
+#end
 
 import java.util.List;
 
@@ -48,7 +51,7 @@ public interface ${ServiceSimpleName} {
      * @param pageSize
      * @return
      */
-    PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record, Integer pageNum, Integer pageSize);
+    PageInfo<${ModelSimpleName}> selectByPage(#if(${multiConditionQuery})${ModelPoSimpleName}#else${ModelSimpleName}#end record, Integer pageNum, Integer pageSize);
 
     /**
      * 全量查询${tableRemark}列表
@@ -56,6 +59,6 @@ public interface ${ServiceSimpleName} {
      * @param record
      * @return
      */
-    List<${ModelSimpleName}> selectList(${ModelSimpleName} record);
+    List<${ModelSimpleName}> selectList(#if(${multiConditionQuery})${ModelPoSimpleName}#else${ModelSimpleName}#end record);
 
 }

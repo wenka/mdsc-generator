@@ -69,6 +69,8 @@ public class FileChain {
      */
     private void initParams(TableInfo tableInfo) {
         args = new LinkedHashMap<>();
+        args.put("multiConditionQuery", PropertiesUtil.getBooleanValue(PropertiesKey.MULI_CONDITIOM_QUERY));
+
         String className = tableInfo.getClassName();
         args.put("tableName", tableInfo.getTableName());
         // 获取表注释
@@ -102,7 +104,7 @@ public class FileChain {
         String modelPoPackage = parentPackage + "." + PropertiesUtil.getValue(PropertiesKey.MODEL_PACKAGE) + "." + Contants.DEFAULT_MODEL_PO;
         String modelPoSimpleName = className + "Po";
         args.put("ModelPoPackage", modelPoPackage);
-        args.put("ModelPoName", modelPackage + "." + modelPoSimpleName);
+        args.put("ModelPoName", modelPackage + "." + Contants.DEFAULT_MODEL_PO + "." + modelPoSimpleName);
         args.put("ModelPoSimpleName", modelPoSimpleName);
         args.put("ModelPoVariableName", StringUtil.initialsLowerCase(modelPoSimpleName));
 

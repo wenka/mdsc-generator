@@ -34,19 +34,26 @@
     insert into ${tableName}
     <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach(${column} in ${columns})
-        <if test="${column.humpName} != null">
-            ${column.name},
-        </if>
+      <if test="${column.humpName} != null">
+          ${column.name},
+      </if>
 #end
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
 #foreach(${column} in ${columns})
-        <if test="${column.humpName} != null">
-            #{${column.humpName},jdbcType=${column.jdbcType}},
-        </if>
+      <if test="${column.humpName} != null">
+          #{${column.humpName},jdbcType=${column.jdbcType}},
+      </if>
 #end
     </trim>
   </insert>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List"/>
+    from ${tableName}
+    WHERE ${pk.name} = #{${pk.humpName},jdbcType=${pk.jdbcType}}
+  </select>
 
   <select id="selectBySelective" resultMap="BaseResultMap" parameterType="${ModelName}">
     select

@@ -4,6 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import ${ModelName};
+#if(${multiConditionQuery})
+import ${ModelPoName};
+#end
 import ${DaoName};
 import ${ServiceName};
 import org.springframework.transaction.annotation.Propagation;
@@ -63,7 +66,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      * @return
      */
     public ${ModelSimpleName} selectById(${PkType} ${PkName}) {
-        return this.${DaoVariableName}.selectBySelective(new ${ModelSimpleName}().set${setPkName}(${PkName}));
+        return this.${DaoVariableName}.selectByPrimaryKey(${PkName});
     }
 
     /**
@@ -74,7 +77,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      * @param pageSize
      * @return
      */
-    public PageInfo<${ModelSimpleName}> selectByPage(${ModelSimpleName} record, Integer pageNum, Integer pageSize) {
+    public PageInfo<${ModelSimpleName}> selectByPage(#if(${multiConditionQuery})${ModelPoSimpleName}#else${ModelSimpleName}#end record, Integer pageNum, Integer pageSize) {
         Page<${ModelSimpleName}> page = PageHelper.startPage(pageNum, pageSize);
         this.${DaoVariableName}.selectList(record);
         return page.toPageInfo();
@@ -86,7 +89,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      * @param record
      * @return
      */
-    public List<${ModelSimpleName}> selectList(${ModelSimpleName} record) {
+    public List<${ModelSimpleName}> selectList(#if(${multiConditionQuery})${ModelPoSimpleName}#else${ModelSimpleName}#end record) {
         return this.${DaoVariableName}.selectList(record);
     }
 

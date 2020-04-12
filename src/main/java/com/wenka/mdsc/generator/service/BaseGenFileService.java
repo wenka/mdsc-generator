@@ -39,6 +39,7 @@ public abstract class BaseGenFileService implements GenFileService {
     public void writeFile(TableInfo tableInfo, FileChain fileChain) {
         boolean support = this.support();
         if (!support) {
+            fileChain.execute(tableInfo);
             return;
         }
         // 获取模板

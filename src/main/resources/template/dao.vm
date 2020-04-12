@@ -1,6 +1,9 @@
 package ${DaoPackage};
 
 import ${ModelName};
+#if(${multiConditionQuery})
+import ${ModelPoName};
+#end
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import java.util.List;
@@ -20,9 +23,14 @@ public interface ${DaoSimpleName} {
     int insertSelective(${ModelSimpleName} record);
 
     /**
+    * 根据主键查询
+    */
+    ${ModelSimpleName} selectByPrimaryKey(${PkType} ${PkName});
+
+    /**
      * 根据条件查询${tableRemark}
      */
-    ${ModelSimpleName} selectBySelective(${ModelSimpleName} record);
+    ${ModelSimpleName} selectBySelective(#if(${multiConditionQuery})${ModelPoSimpleName}#else${ModelSimpleName}#end record);
 
     /**
      * 根据主键修改${tableRemark}
@@ -34,6 +42,6 @@ public interface ${DaoSimpleName} {
      *
      * @return
      */
-    List<${ModelSimpleName}> selectList(${ModelSimpleName} record);
+    List<${ModelSimpleName}> selectList(#if(${multiConditionQuery})${ModelPoSimpleName}#else${ModelSimpleName}#end record);
 
 }
