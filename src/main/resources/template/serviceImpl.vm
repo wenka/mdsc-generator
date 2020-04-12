@@ -34,8 +34,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      */
     public int add(${ModelSimpleName} record) {
         record.set${setPkName}(${idUtil});
-        record.setCreateTime(new Date());
-        record.setUpdateTime(new Date());
+        //todo do something else.
         return this.${DaoVariableName}.insertSelective(record);
     }
 
@@ -45,7 +44,7 @@ public class ${ServiceImplSimpleName} implements ${ServiceSimpleName} {
      * @param record
      */
     public int update(${ModelSimpleName} record) {
-        record.setUpdateTime(new Date());
+        //todo do something else.
         return this.${DaoVariableName}.updateByPrimaryKeySelective(record);
     }
 
