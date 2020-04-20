@@ -44,7 +44,7 @@ public class DBServiceImpl implements DBService {
         List<Column> columnList = this.dbConfig.execute(metaData -> {
             List<Column> columnLinkedList = new LinkedList<>();
             try {
-                ResultSet columns = metaData.getColumns(null, "%", tableName, "%");
+                ResultSet columns = metaData.getColumns(null, metaData.getConnection().getSchema(), tableName, "%");
                 while (columns.next()) {
                     String columnName = columns.getString("COLUMN_NAME");
                     int digits = columns.getInt("DECIMAL_DIGITS");
@@ -81,7 +81,7 @@ public class DBServiceImpl implements DBService {
     public String getTableRemark(String tableName) {
         String remarks = this.dbConfig.execute(metaData -> {
             try {
-                ResultSet resultSet = metaData.getTables(null, "%", tableName, new String[]{"TABLE"});
+                ResultSet resultSet = metaData.getTables(null, metaData.getConnection().getSchema(), tableName, new String[]{"TABLE"});
                 if (resultSet.next()) {
                     return resultSet.getString("REMARKS");
                 }
@@ -104,7 +104,7 @@ public class DBServiceImpl implements DBService {
         Map<String, Integer> execute = this.dbConfig.execute(metaData -> {
             Map<String, Integer> pkMap = new HashMap<>();
             try {
-                ResultSet primaryKeys = metaData.getPrimaryKeys(null, "%", tableName);
+                ResultSet primaryKeys = metaData.getPrimaryKeys(null, metaData.getConnection().getSchema(), tableName);
                 while (primaryKeys.next()) {
                     String columnName = primaryKeys.getString("COLUMN_NAME");
                     Integer keySeq = primaryKeys.getInt("KEY_SEQ");
