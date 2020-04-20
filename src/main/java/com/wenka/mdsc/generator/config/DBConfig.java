@@ -86,6 +86,7 @@ public class DBConfig {
             properties.setProperty("password", this.getPassword());
             properties.setProperty("remarks", "true");
             properties.setProperty("useInformationSchema", "true");
+            properties.setProperty("databaseTerm", "SCHEMA");
             connection = DriverManager.getConnection(this.getUrl(), properties);
             connection.setClientInfo(properties);
         } catch (Exception e) {
