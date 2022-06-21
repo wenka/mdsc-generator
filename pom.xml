@@ -25,7 +25,7 @@
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
     <velocity.version>1.7</velocity.version>
-    <mysql.version>8.0.18</mysql.version>
+    <mysql.version>8.0.28</mysql.version>
     <junit.version>4.12</junit.version>
     <lombok.version>1.18.10</lombok.version>
   </properties>
